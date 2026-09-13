@@ -1,0 +1,38 @@
+# ==============================================================================
+# Robots.txt for Lo Sdrogo Golfometro
+# Official Domain: https://losdrogogolfometro.cloud/
+# Community: Melagoodo - Golf With Your Friends Historical Archive
+# ==============================================================================
+
+# Default rule for all search engines (Google, Bing, Yahoo, DuckDuckGo, etc.)
+User-agent: *
+Allow: /
+
+# OpenAI Crawlers (ChatGPT, SearchGPT, GPTBot)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI Crawler
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude Crawlers
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google Generative AI (Gemini, Vertex, AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence & Siri Generative Models
+User-agent: Applebot-Extended
+Allow: /
+
+# Official XML Sitemap
+Sitemap: https://losdrogogolfometro.cloud/sitemap.xml
