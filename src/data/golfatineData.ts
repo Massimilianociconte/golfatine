@@ -31,6 +31,7 @@ export interface GolfatinaMatch {
   maxHoleScore: number;
   sdrogoCommentary: string;
   players: PlayerScorecard[];
+  hasScorecard?: boolean;
 }
 
 export interface PlayerProfile {
