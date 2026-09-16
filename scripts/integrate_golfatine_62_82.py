@@ -184,7 +184,7 @@ def extract_ts_const(src, name):
 
 
 def enrich_match(m):
-    """Stessa derivazione di scripts/generate_verified_data.py + channel."""
+    """Stessa derivazione usata da generate_verified_data.py (ora rimosso; vedi git history) + channel."""
     m_id = m["id"]
     for p in m["players"]:
         non_null = [h for h in p["holes"] if h is not None]

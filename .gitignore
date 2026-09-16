@@ -35,3 +35,7 @@ dist-ssr
 
 # venv locale MLX per estrazione scoreboard (ricreabile, mai committare)
 .venv-mlx/
+
+# bytecode python (mai committare)
+__pycache__/
+*.pyc

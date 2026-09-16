@@ -1,21 +1,53 @@
-# Golfatine — Regola di aggiornamento nuova golfatina (root)
+# Golfatine — Istruzioni agente AI (root)
 
-> Questa regola si applica OGNI volta che `lista-golfatine.docx` e/o `Lista-golfatine.pdf`
-> nella root vengono aggiornati con una nuova golfatina. Va eseguita integralmente,
-> senza saltare passi.
->
-> **Esegui i passi 1–7 con la pipeline automatizzata** (stessi controlli, stesso
-> formato commit messaggio):
-> - `npm run update:check` → solo riverifica, nessuna modifica.
-> - `npm run update:golfatina -- --yes`
->   → riverifica DOCX/PDF, oEmbed canale, estrazione scoreboard dallo screenshot
->   col VLM locale (Qwen2.5-VL-3B su MLX, `.venv-mlx`, gate checksum per riga),
->   integra, ricalcola stats/H2H/summary, aggiorna hardcoded, forecast TimesFM,
->   test+tsc, commit+push su `main` (redeploy Vercel automatico).
-> - Override manuale se il VLM fallisce: trascrivere lo scoreboard in JSON
->   (`{"par": N, "players": [{"name","position","totalScore","diffPar","holes":[b1..b18]}]}`)
->   e passare `--scoreboard /tmp/sb<N>.json` (o `--no-extract`).
-> - Dettaglio manuale dei passi sotto (riferimento / fallback se la pipeline fallisce).
+> Applica questa regola OGNI volta che `lista-golfatine.docx` e/o `Lista-golfatine.pdf`
+> nella root vengono aggiornati con una nuova golfatina. Eseguila integralmente,
+> senza saltare passi. Via prioritaria = pipeline automatizzata qui sotto.
+
+## 0. Via prioritaria: pipeline automatizzata
+
+- `npm run update:check` → solo riverifica DOCX/PDF vs CSV/TS, nessuna modifica.
+- `npm run update:golfatina -- --yes`
+  → riverifica, canale via oEmbed, **estrazione scoreboard dallo screenshot col
+  VLM locale**, integrazione dati, ricalcolo stats/H2H/summary, hardcoded,
+  forecast TimesFM, `npm test` + `tsc`, commit + push su `main`
+  (redeploy Vercel automatico via integrazione GitHub).
+- Flag utili: `--scoreboard /tmp/sb<N>.json` (scoreboard manuale, formato §3),
+  `--no-extract` (salta il VLM), `--check`, `--self-test` (pattern hardcoded),
+  `--no-commit` / `--no-push`, `--watch SEC` (resta in attesa di modifiche).
+- Se la pipeline fallisce su uno step, usa il dettaglio manuale §§1–7 qui sotto
+  (riferimento + fallback), poi rifai comunque verifica §6 e commit §7.
+
+## Setup ambienti (non committare mai venv, pesi, .env — vedi `.gitignore`)
+
+- Node: `npm install`, `npm test` (vitest), `npx tsc --noEmit`, `npm run build`.
+- Forecast: venv esterno `/Users/massimilianociconte/Documents/prediction/.venv`
+  (Google TimesFM-3.0, CPU). Mai installare torch nel repo.
+- Estrazione screenshot: `.venv-mlx` del repo
+  (`python3 -m venv .venv-mlx && .venv-mlx/bin/pip install mlx-vlm pillow torchvision`),
+  modello `mlx-community/Qwen2.5-VL-3B-Instruct-4bit` (scaricato in cache HF al
+  primo uso, ~2GB). NB: SmolVLM 256M/500M provati e **scartati** (fondono le
+  cifre adiacenti della griglia); non reinstallarli.
+
+## Mappa repo (cosa è corrente, cosa è stato rimosso)
+
+- Sorgenti verità: `lista-golfatine.docx`, `Lista-golfatine.pdf` (root).
+- Dati sito: `golfatine_clean.csv` + `src/data/golfatineData.ts`
+  (`MATCHES_DATA`, `PLAYERS_DATA`, `H2H_DATA`, `GLOBAL_SUMMARY`),
+  `src/data/forecastingData.ts` (forecast), `src/data/channels.ts` (publisher).
+- Script correnti: `scripts/auto_update_golfatina.py` (pipeline),
+  `scripts/extract_scoreboard.py` (VLM screenshot→JSON),
+  `scripts/generate_forecast_timesfm.py` (TimesFM, `NEXT_MATCH_NUMBER`),
+  `scripts/integrate_golfatine_62_82.py` (libreria riusata dalla pipeline:
+  `enrich_match`, `recompute_player_stats`, `recompute_h2h`, `TS_TEMPLATE`
+  — NON eseguirlo direttamente).
+- Rimossi perché superati/deprecati (recuperabili da git history):
+  `raw_golfatine.csv`, `scripts/generate_data.py`,
+  `scripts/generate_verified_data.py`, `scripts/generate_forecast.py` (deprecated),
+  `scripts/generate_avatars.py`, `scripts/audit_live_db.js`,
+  `scripts/test_auth_lifecycle.js`.
+- Mai committare: `.env*`, `.venv-mlx/`, `__pycache__/`, `*.pyc`, `dist/`,
+  `supabase/.temp/`, lock Word `~$*.docx`.
 
 ## 1. Sorgenti verità
 - Root: `lista-golfatine.docx`, `Lista-golfatine.pdf` (titolo, data, link YouTube).
@@ -34,11 +66,15 @@
   - `grep -n '"id":' src/data/golfatineData.ts | tail`
   - coda testo estratto da DOCX/PDF.
 - Se l'ultimo del DOCX/PDF è già in `MATCHES_DATA` + CSV → solo riverifica.
-  Altrimenti è quello da inserire (es. 87 già presente → inserire 88
-  `LA GOLFATINA SURREALE … 2026-09-12 https://youtu.be/II1Wo61nTvc`, canale `Mollu`).
+  Altrimenti è quello da inserire (mai fidarsi del numero detto a voce).
 
 ## 3. Estrarre scoreboard dallo screenshot
-- Trascrivere per ogni riga: posizione, giocatore, b1..b18, totale.
+- Via prioritaria: VLM locale (`scripts/extract_scoreboard.py`, vedi §0):
+  cascata full-image → terzi a confini esatti → singole celle, con gate
+  checksum per riga. Mai accettare righe che non validano.
+- Fallback manuale: trascrivere per ogni riga posizione, giocatore, b1..b18,
+  totale, in JSON `{"par": N, "players": [{"name","position","totalScore",`
+  `"diffPar","holes":[b1..b18]}]}` e passare `--scoreboard`.
 - PAR riga verde = `totalPar`. Verifiche obbligatorie per ogni giocatore:
   - `sum(b1..b18) == punteggio_totale`
   - `punteggio_totale - par_totale == diff_par`
@@ -58,7 +94,7 @@
     `totalTwos,totalThrees,totalDisasters,totalCapped,nemesis`)
   - `H2H_DATA` matrice completa
   - `GLOBAL_SUMMARY`: `totalMatches=len(matches)`, `totalVideos=max(id ufficiale)`
-    (88 → 88; missing #14–17 senza scorecard + #79 duplicato #30),
+    (missing #14–17 senza scorecard + #79 duplicato #30),
     `totalScorecards`, `totalHolesPlayed`, `totalHIOs`, `totalDisasters`,
     `mostWinsPlayer`, `bestDiffParRecord`, `worstScoreRecord`.
 - Aggiornare testi hardcoded:
