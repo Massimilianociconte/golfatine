@@ -9,11 +9,14 @@ Replica integralmente la regola di root `AGENTS.md` in un unico comando:
 Passi eseguiti (gli stessi sempre):
   1. Riverifica DOCX + PDF (titolo, data, link) vs CSV vs golfatineData.ts.
      Se l'ultimo video e' gia' integrato -> solo riverifica, nessuna modifica.
-  2. Estrae titolo/data/link del/i video nuovi; verifica il canale publisher
+  2. Estrae titolo/data/link del video nuovo; verifica il canale publisher
      via oEmbed (mai dedotto dal titolo).
-  3. Estrae dallo .docx l'ultimo screenshot classifica (word/media/*.png in
-     ordine di embed) e valida lo scoreboard fornito via --scoreboard
-     (sum(b1..b18) == totale, totale - par == diff_par).
+  3. Estrae dallo .docx l'ultimo screenshot classifica e lo trascrive da solo
+     col VLM locale (Qwen2.5-VL-3B su MLX, scripts/extract_scoreboard.py):
+     validazione checksum per riga (sum==totale), retry su terzi/celle,
+     mai indovinare (fallback: draft + abort).
+     Flag --scoreboard per fornire lo scoreboard a mano, --no-extract per
+     saltare il VLM.
   4. Integra MATCHES_DATA + golfatine_clean.csv e ricalcola PLAYERS_DATA,
      H2H_DATA, GLOBAL_SUMMARY (stessa logica di integrate_golfatine_62_82.py).
   5. Aggiorna gli hardcoded (GolfatineGrid, channels.ts, tests, NEXT_MATCH_NUMBER).
@@ -51,6 +54,8 @@ GRID_PATH = os.path.join(PROJECT_ROOT, "src", "components", "GolfatineGrid.tsx")
 CHANNELS_PATH = os.path.join(PROJECT_ROOT, "src", "data", "channels.ts")
 TESTS_PATH = os.path.join(PROJECT_ROOT, "tests", "golfatineData.test.ts")
 PREDICTION_PYTHON = "/Users/massimilianociconte/Documents/prediction/.venv/bin/python"
+MLX_PYTHON = os.path.join(PROJECT_ROOT, ".venv-mlx", "bin", "python")
+EXTRACT_SCRIPT = os.path.join(PROJECT_ROOT, "scripts", "extract_scoreboard.py")
 PDF2MD_CANDIDATES = [
     shutil.which("pdf2md") or "",
     "/Users/massimilianociconte/.cargo/bin/pdf2md",
@@ -67,6 +72,7 @@ DATE_RE = re.compile(r"(\d{1,2})\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|
 
 KNOWN_DUPLICATE_YT = {"efppNZh_4UA"}  # #79 = duplicato del video #30
 COMMIT_FILES = ["golfatine_clean.csv", "scripts/generate_forecast_timesfm.py",
+                "scripts/extract_scoreboard.py",
                 "src/components/GolfatineGrid.tsx", "src/data/channels.ts",
                 "src/data/forecastingData.ts", "src/data/golfatineData.ts",
                 "tests/golfatineData.test.ts", "scripts/auto_update_golfatina.py",
@@ -527,13 +533,22 @@ def run_pipeline(args):
     if args.ocr_draft:
         ocr_draft(img)
     if not args.scoreboard:
-        if not sys.stdin.isatty() or args.yes:
+        if len(new_ids) != 1:
+            fail(f"{len(new_ids)} video nuovi: estrazione automatica supportata per un video alla volta "
+                 f"(passa --scoreboard JSON mappato per id, vedi docstring)")
+        if args.no_extract:
             fail(f"serve --scoreboard FILE.json (screenshot: {img})")
-        ans = input(f"[golfatina] screenshot in {img}. Hai trascritto lo scoreboard? "
-                    "Percorso JSON (invio per abortire): ").strip()
-        if not ans:
-            fail("scoreboard mancante: trascrivere posizioni/giocatori/b1..b18/totale e riprovare con --scoreboard")
-        args.scoreboard = ans
+        if not (os.path.isfile(MLX_PYTHON) and os.access(MLX_PYTHON, os.X_OK)):
+            fail(f"venv MLX assente: crealo con\n"
+                 f"  python3 -m venv .venv-mlx && .venv-mlx/bin/pip install mlx-vlm pillow torchvision\n"
+                 f"oppure passa --scoreboard FILE.json (screenshot: {img})")
+        sb_out = f"/tmp/sb_golfatina_{new_ids[0]}.json"
+        log(f"estrazione automatica scoreboard con VLM locale (MLX) da {img}…")
+        r = subprocess.run([MLX_PYTHON, EXTRACT_SCRIPT, img, "--out", sb_out])
+        if r.returncode != 0:
+            fail(f"estrazione automatica fallita: correggi il draft {sb_out} e riprova con --scoreboard {sb_out}")
+        args.scoreboard = sb_out
+        log(f"scoreboard auto-estratto e validato: {sb_out}")
     scoreboards = load_scoreboard(args.scoreboard, new_ids)
     log("scoreboard validati (somme e diff_par OK)")
 
@@ -590,6 +605,7 @@ def main(argv=None):
     ap.add_argument("--scoreboard", default="", help="JSON con par + scorecard (vedi docstring)")
     ap.add_argument("--image", default="", help="screenshot classifica da usare (default: ultimo embed del DOCX)")
     ap.add_argument("--ocr-draft", action="store_true", help="stampa bozza OCR dello screenshot (tesseract, da verificare)")
+    ap.add_argument("--no-extract", action="store_true", help="non usare il VLM locale: richiede --scoreboard manuale")
     ap.add_argument("--check", action="store_true", help="solo riverifica DOCX/PDF vs CSV/TS, nessuna modifica")
     ap.add_argument("--verify", action="store_true", help="con --check esegue anche npm test + tsc")
     ap.add_argument("--no-forecast", action="store_true", help="salta il forecast TimesFM")

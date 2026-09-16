@@ -7,11 +7,14 @@
 > **Esegui i passi 1–7 con la pipeline automatizzata** (stessi controlli, stesso
 > formato commit messaggio):
 > - `npm run update:check` → solo riverifica, nessuna modifica.
-> - Trascrivere lo scoreboard dallo screenshot in JSON
->   (`{"par": N, "players": [{"name","position","totalScore","diffPar","holes":[b1..b18]}]}`).
-> - `npm run update:golfatina -- --yes --scoreboard /tmp/sb<N>.json`
->   → integra, ricalcola stats/H2H/summary, aggiorna hardcoded, forecast TimesFM,
+> - `npm run update:golfatina -- --yes`
+>   → riverifica DOCX/PDF, oEmbed canale, estrazione scoreboard dallo screenshot
+>   col VLM locale (Qwen2.5-VL-3B su MLX, `.venv-mlx`, gate checksum per riga),
+>   integra, ricalcola stats/H2H/summary, aggiorna hardcoded, forecast TimesFM,
 >   test+tsc, commit+push su `main` (redeploy Vercel automatico).
+> - Override manuale se il VLM fallisce: trascrivere lo scoreboard in JSON
+>   (`{"par": N, "players": [{"name","position","totalScore","diffPar","holes":[b1..b18]}]}`)
+>   e passare `--scoreboard /tmp/sb<N>.json` (o `--no-extract`).
 > - Dettaglio manuale dei passi sotto (riferimento / fallback se la pipeline fallisce).
 
 ## 1. Sorgenti verità
