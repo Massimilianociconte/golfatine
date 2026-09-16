@@ -3,6 +3,16 @@
 > Questa regola si applica OGNI volta che `lista-golfatine.docx` e/o `Lista-golfatine.pdf`
 > nella root vengono aggiornati con una nuova golfatina. Va eseguita integralmente,
 > senza saltare passi.
+>
+> **Esegui i passi 1–7 con la pipeline automatizzata** (stessi controlli, stesso
+> formato commit messaggio):
+> - `npm run update:check` → solo riverifica, nessuna modifica.
+> - Trascrivere lo scoreboard dallo screenshot in JSON
+>   (`{"par": N, "players": [{"name","position","totalScore","diffPar","holes":[b1..b18]}]}`).
+> - `npm run update:golfatina -- --yes --scoreboard /tmp/sb<N>.json`
+>   → integra, ricalcola stats/H2H/summary, aggiorna hardcoded, forecast TimesFM,
+>   test+tsc, commit+push su `main` (redeploy Vercel automatico).
+> - Dettaglio manuale dei passi sotto (riferimento / fallback se la pipeline fallisce).
 
 ## 1. Sorgenti verità
 - Root: `lista-golfatine.docx`, `Lista-golfatine.pdf` (titolo, data, link YouTube).
