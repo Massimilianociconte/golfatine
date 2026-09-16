@@ -26,7 +26,7 @@ from src.models_manager import TimesFMManager  # noqa: E402
 
 MODEL = "google/timesfm-3.0-pytorch"
 PLAYERS = ["Just Rohn", "Delux", "nonsonodread", "ilMasseo", "GaBBo", "Mollu", "JTaz"]
-NEXT_MATCH_NUMBER = 89
+NEXT_MATCH_NUMBER = 90
 
 
 def main():

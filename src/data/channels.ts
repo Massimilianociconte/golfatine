@@ -1,7 +1,7 @@
 // Mappa verificata Giocatore <-> Canale YouTube di pubblicazione.
 //
 // I nomi dei canali sono quelli ESATTI di YouTube (verificati via oEmbed su
-// tutti gli 88 video al 2026-09-12): il canale di Rohn si chiama "Just Rohn JR"
+// tutti gli 89 video al 2026-09-14): il canale di Rohn si chiama "Just Rohn JR"
 // e quello di Masseo "oessaM", anche se la lista-golfatine li riporta come
 // "Just Rohn" / "ilMasseo".
 // Cliccare un giocatore filtra i video PUBBLICATI sul suo canale (match
