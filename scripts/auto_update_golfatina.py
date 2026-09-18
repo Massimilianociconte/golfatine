@@ -73,7 +73,8 @@ DATE_NOYEAR_RE = re.compile(r"(\d{1,2})\s+(gennaio|febbraio|marzo|aprile|maggio|
 DEFAULT_YEAR = "2026"
 
 KNOWN_DUPLICATE_YT = {"efppNZh_4UA"}  # #79 = duplicato del video #30
-COMMIT_FILES = ["golfatine_clean.csv", "scripts/generate_forecast_timesfm.py",
+COMMIT_FILES = ["golfatine_clean.csv", "lista-golfatine.docx", "Lista-golfatine.pdf",
+                 "scripts/generate_forecast_timesfm.py",
                 "scripts/extract_scoreboard.py",
                 "src/components/GolfatineGrid.tsx", "src/data/channels.ts",
                 "src/data/forecastingData.ts", "src/data/golfatineData.ts",
