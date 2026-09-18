@@ -69,6 +69,8 @@ MONTHS = {"gennaio": "01", "febbraio": "02", "marzo": "03", "aprile": "04",
           "settembre": "09", "ottobre": "10", "novembre": "11", "dicembre": "12"}
 YOUTUBE_RE = re.compile(r"(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com/watch\?[^ ]*?v=)([A-Za-z0-9_-]{6,})")
 DATE_RE = re.compile(r"(\d{1,2})\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\s+(\d{4})", re.IGNORECASE)
+DATE_NOYEAR_RE = re.compile(r"(\d{1,2})\s+(gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)(?!\s+\d{4})", re.IGNORECASE)
+DEFAULT_YEAR = "2026"
 
 KNOWN_DUPLICATE_YT = {"efppNZh_4UA"}  # #79 = duplicato del video #30
 COMMIT_FILES = ["golfatine_clean.csv", "scripts/generate_forecast_timesfm.py",
@@ -130,9 +132,17 @@ def parse_entries(text):
         date_iso = None
         if dm:
             date_iso = f"{dm.group(3)}-{MONTHS[dm.group(2).lower()]}-{int(dm.group(1)):02d}"
+        else:
+            dn = DATE_NOYEAR_RE.search(seg)
+            if dn:
+                date_iso = f"{DEFAULT_YEAR}-{MONTHS[dn.group(2).lower()]}-{int(dn.group(1)):02d}"
         title = seg[:um.start()]
         if dm:
             title = title.replace(dm.group(0), " ")
+        else:
+            dn2 = DATE_NOYEAR_RE.search(title)
+            if dn2:
+                title = title.replace(dn2.group(0), " ")
         title = re.sub(r"\s+", " ", re.sub(r"^(Canale:\s*\S+\s*)?", "", title)).strip(" -–—|")
         entries.append({"num": num, "title": title.strip(), "date": date_iso,
                         "url": f"https://youtu.be/{yt}", "youtube_id": yt})
@@ -482,17 +492,24 @@ def riverifica():
         log("PDF: non confrontabile (pdf2md assente o fallito)")
     log(f"CSV: max #{max(csv_max)} ({len(csv_max)} id) | TS: max #{max(ts_max)}")
     # Controllo indipendente dalla numerazione: tutti gli URL dei documenti
-    # devono esistere nei dati (a parte i duplicati noti).
+    # devono esistere nei dati (a parte i duplicati noti e le nuove voci
+    # numerate oltre max(CSV,TS), che sono proprio quelle da integrare).
     with open(TS_PATH, encoding="utf-8") as f:
         ts_yt = set(re.findall(r'"youtubeId":\s*"([^"]+)', f.read()))
     doc_yt = all_youtube_ids(docx_text)
     if pdf_text:
         doc_yt |= all_youtube_ids(pdf_text)
-    missing = sorted(doc_yt - ts_yt - KNOWN_DUPLICATE_YT)
+    last_known = max(max(csv_max), max(ts_max))
+    new_numbered_yt = {e["youtube_id"] for e in doc_entries if e["num"] > last_known}
+    missing = sorted(doc_yt - ts_yt - KNOWN_DUPLICATE_YT - new_numbered_yt)
     if missing:
         fail(f"URL nei documenti ma assenti nei dati: {missing} "
              "(aggiungere la voce numerata nel DOCX o estendere KNOWN_DUPLICATE_YT)")
-    log(f"URL documenti: {len(doc_yt)} tutti presenti nei dati OK")
+    pending = sorted(doc_yt - ts_yt - KNOWN_DUPLICATE_YT)
+    if pending:
+        log(f"nuovi URL da integrare: {pending}")
+    else:
+        log(f"URL documenti: {len(doc_yt)} tutti presenti nei dati OK")
     return doc_entries, pdf_entries, csv_max, ts_max
 
 
