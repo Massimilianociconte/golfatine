@@ -1,0 +1,11 @@
+# File locali esclusi dal deploy Vercel (ricreabili / non servono alla build remota)
+.venv-mlx
+node_modules
+dist
+supabase/.temp
+lista-golfatine.docx
+Lista-golfatine.pdf
+~$sta-golfatine.docx
+__pycache__
+*.pyc
+.venv
