@@ -73,6 +73,40 @@ DATE_NOYEAR_RE = re.compile(r"(\d{1,2})\s+(gennaio|febbraio|marzo|aprile|maggio|
 DEFAULT_YEAR = "2026"
 
 KNOWN_DUPLICATE_YT = {"efppNZh_4UA"}  # #79 = duplicato del video #30
+
+# Nomi giocatori: source of truth per normalizzazione + validazione.
+# Mirror di CANONICAL in scripts/extract_scoreboard.py (chiavi minuscole,
+# senza spazi/punteggiatura) + comparse storiche con scoreboard reale.
+PLAYER_ALIASES = {
+    "justrohn": "Just Rohn", "justrohnjr": "Just Rohn",
+    "justfinalmentecivedorohn": "Just Rohn",
+    "delux": "Delux", "delu": "Delux",
+    "nonsonodread": "nonsonodread", "dread": "nonsonodread",
+    "ilmasseo": "ilMasseo", "masseo": "ilMasseo",
+    "gabbo": "GaBBo", "gabb0": "GaBBo", "gab0": "GaBBo",
+    "gabbbo": "GaBBo", "gabbines": "GaBBo",
+    "mollu": "Mollu",
+    "jtaz": "JTaz", "jtazz": "JTaz",
+    "fava": "Fava",
+    "justmarzaa": "Just Marzaa", "marzaa": "Just Marzaa",
+    "nbayungchape": "nbayungchape",
+}
+# Comparse con scoreboard reale, fuori dai 7 fissi del forecast.
+KNOWN_EXTRA_PLAYERS = {"Fava", "Just Marzaa", "nbayungchape"}
+# 7 fissi del forecast: mirror di PLAYERS in scripts/generate_forecast_timesfm.py.
+FIXED_PLAYERS = ["Just Rohn", "Delux", "nonsonodread", "ilMasseo",
+                 "GaBBo", "Mollu", "JTaz"]
+
+
+def canon_player(name):
+    key = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    return PLAYER_ALIASES.get(key, (name or "").strip())
+
+
+def csv_roster(path):
+    with open(path, encoding="utf-8") as f:
+        return {r["giocatore"].strip() for r in csv.DictReader(f)
+                if r.get("giocatore", "").strip()}
 COMMIT_FILES = ["golfatine_clean.csv", "lista-golfatine.docx", "Lista-golfatine.pdf",
                  "scripts/generate_forecast_timesfm.py",
                 "scripts/extract_scoreboard.py",
@@ -149,6 +183,10 @@ def parse_entries(text):
                         "url": f"https://youtu.be/{yt}", "youtube_id": yt})
     dedup = {}
     for e in entries:
+        prev = dedup.get(e["num"])
+        if prev and prev["youtube_id"] != e["youtube_id"]:
+            log(f"AVVISO: episodio #{e['num']} con 2 URL diversi "
+                f"({prev['youtube_id']} vs {e['youtube_id']}) — tengo l'ultimo")
         dedup[e["num"]] = e  # un numero puo' comparire sia in tabella che nel testo
     return [dedup[k] for k in sorted(dedup)]
 
@@ -238,18 +276,28 @@ def load_scoreboard(path, new_ids):
         sb = None
     out = {}
     items = [(new_ids[0], single)] if sb is None else sb.items()
+    known = csv_roster(CSV_PATH) | set(FIXED_PLAYERS) | set(KNOWN_EXTRA_PLAYERS)
     for mid, entry in items:
         par = int(entry["par"])
         rows = []
         for p in entry["players"]:
+            name = canon_player(p["name"])
+            if p["name"] != name:
+                log(f"match {mid}: nome normalizzato {p['name']!r} -> {name!r}")
+            if name not in known:
+                fail(f"match {mid}: giocatore sconosciuto {p['name']!r} "
+                     f"(normalizzato {name!r}). Se e' una comparsa reale, "
+                     f"aggiungerlo a KNOWN_EXTRA_PLAYERS; se e' una variante, "
+                     f"aggiungere l'alias a PLAYER_ALIASES (e a CANONICAL in "
+                     f"scripts/extract_scoreboard.py). Nomi noti: {sorted(known)}")
             holes = [int(h) for h in p["holes"]]
             if len(holes) != 18:
-                fail(f"match {mid} {p['name']}: attese 18 buche, trovate {len(holes)}")
+                fail(f"match {mid} {name}: attese 18 buche, trovate {len(holes)}")
             if sum(holes) != int(p["totalScore"]):
-                fail(f"match {mid} {p['name']}: sum(buche)={sum(holes)} != totale={p['totalScore']}")
+                fail(f"match {mid} {name}: sum(buche)={sum(holes)} != totale={p['totalScore']}")
             if int(p["totalScore"]) - par != int(p["diffPar"]):
-                fail(f"match {mid} {p['name']}: diff_par incoerente")
-            rows.append({"giocatore": p["name"], "posizione": int(p["position"]),
+                fail(f"match {mid} {name}: diff_par incoerente")
+            rows.append({"giocatore": name, "posizione": int(p["position"]),
                          "punteggio_totale": int(p["totalScore"]),
                          "diff_par": int(p["diffPar"]), "holes": holes})
         out[int(mid)] = {"par": par, "rows": rows}
@@ -388,17 +436,18 @@ def update_hardcoded(new_ids, channels, last_date, summary):
         sub_file(TESTS_PATH, r"for \(const vid of \[[\d,\s]+\]\)",
                  f"for (const vid of [{', '.join(map(str, have2))}])",
                  "test scorecard complete")
+    chan_pat = re.compile(r"expect\(byId\.get\(\d+\)\?\.channel\)\.toBe\('[^']*'\);")
     for mid in sorted(new_ids):
         with open(TESTS_PATH, encoding="utf-8") as f:
             cur = f.read()
         if f"byId.get({mid})" not in cur:
-            anchor = "expect(byId.get(88)?.channel).toBe('Mollu');"
-            ins = anchor + f"\n    expect(byId.get({mid})?.channel).toBe('{channels[mid]}');"
-            if anchor in cur:
-                cur = cur.replace(anchor, ins)
-            else:
-                anchor2 = "expect(byId.get(87)?.channel).toBe('Just Rohn JR');"
-                cur = cur.replace(anchor2, anchor2 + f"\n    expect(byId.get({mid})?.channel).toBe('{channels[mid]}');")
+            found = list(chan_pat.finditer(cur))
+            if not found:
+                fail("pattern spot-check canale assente nei test (formato cambiato?)")
+            ins_point = found[-1].end()
+            cur = (cur[:ins_point] +
+                   f"\n    expect(byId.get({mid})?.channel).toBe('{channels[mid]}');" +
+                   cur[ins_point:])
             with open(TESTS_PATH, "w", encoding="utf-8") as f:
                 f.write(cur)
             log(f"test spot-check canale #{mid} = {channels[mid]}")
@@ -457,6 +506,10 @@ def commit_push(new_ids, titles):
                             capture_output=True, text=True).stdout
     if re.search(r"\.env(\.|$|\s)", status):
         fail("file .env* nello stage: rifiuto il commit")
+    extra = sorted({l[3:].strip('"') for l in status.splitlines()
+                    if re.match(r"^\s*M", l) and l[3:].strip('"') not in COMMIT_FILES})
+    if extra:
+        log(f"AVVISO: modifiche trackate fuori COMMIT_FILES, non incluse nel commit: {extra}")
     n = max(new_ids)
     # titolo commit in formato AGENTS.md: feat: golfatina #N – <TITOLO> (<DATA>) + forecast TimesFM #N+1
     info_dates = commit_push.dates

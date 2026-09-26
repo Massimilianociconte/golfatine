@@ -134,6 +134,9 @@ def main():
         "dateEstimated": "Prossima Uscita",
         "playersForecast": [forecasts[p] for p in ranked],
         "aiAnalysis": analysis,
+        # Template par tipico (somma 67): campo legacy mai consumato dalla UI,
+        # tenuto per stabilita' dell'interfaccia. Fa fede `totalPar` (mediana
+        # ultimi 10). Non "correggerlo" per farlo sommare a totalPar.
         "courseHolePars": [3, 4, 3, 4, 4, 3, 5, 3, 3, 4, 4, 3, 4, 4, 3, 5, 4, 4],
     }
 

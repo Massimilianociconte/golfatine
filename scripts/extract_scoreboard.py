@@ -33,15 +33,26 @@ from PIL import Image
 MODEL_DEFAULT = "mlx-community/Qwen2.5-VL-3B-Instruct-4bit"
 
 CANONICAL = {
-    "just rohn": "Just Rohn", "justrohn": "Just Rohn",
+    "justrohn": "Just Rohn", "justrohnjr": "Just Rohn",
     "justfinalmentecivedorohn": "Just Rohn",
     "delux": "Delux", "delu": "Delux",
     "nonsonodread": "nonsonodread", "dread": "nonsonodread",
     "ilmasseo": "ilMasseo", "masseo": "ilMasseo",
     "gabbo": "GaBBo", "gabb0": "GaBBo", "gab0": "GaBBo", "gabbbo": "GaBBo",
+    "gabbines": "GaBBo",
     "mollu": "Mollu",
-    "jtaz": "JTaz",
+    "jtaz": "JTaz", "jtazz": "JTaz",
+    "fava": "Fava",
+    "justmarzaa": "Just Marzaa", "marzaa": "Just Marzaa",
+    "nbayungchape": "nbayungchape",
 }
+# Roster reale con scoreboard (MATCHES_DATA): fallback per varianti di
+# maiuscole/spazi di nomi noti non mappati sopra. Nomi mai visti passano
+# invariati e la pipeline li rifiuta con fail (fail-closed: estendere qui +
+# PLAYER_ALIASES/KNOWN_EXTRA_PLAYERS in auto_update_golfatina.py).
+ROSTER = {"Just Rohn", "Delux", "nonsonodread", "ilMasseo", "GaBBo",
+          "Mollu", "JTaz", "Fava", "Just Marzaa", "nbayungchape"}
+_ROSTER_NORM = {re.sub(r"[^a-z0-9]", "", r.lower()): r for r in ROSTER}
 
 PROMPT_FULL = (
     "You are transcribing a minigolf videogame scoreboard. Columns are holes "
@@ -100,7 +111,9 @@ class Reader:
 
 def canon(name):
     key = re.sub(r"[^a-z0-9]", "", (name or "").lower())
-    return CANONICAL.get(key, name)
+    if key in CANONICAL:
+        return CANONICAL[key]
+    return _ROSTER_NORM.get(key, name)
 
 
 def detect_par(arr):

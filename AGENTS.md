@@ -162,9 +162,16 @@ Confrontare tutti e tre:
   `{"par": N, "players": [{"name","position","totalScore","diffPar","holes":[b1..b18]}]}`
   (più video: `{"89": {...}, "90": {...}}`).
 - PAR = riga verde in alto = `totalPar`.
-- Nomi giocatori: usare SEMPRE i canonici (§"Nomi canonici"). La pipeline
-  NON normalizza: se VLM/trascrizione produce varianti, correggere il JSON
-  prima di integrare.
+- Nomi giocatori: usare SEMPRE i canonici (sotto). Doppia rete:
+  `canon()` in `extract_scoreboard.py` (VLM) + `canon_player()` in
+  `auto_update_golfatina.py` (ogni scoreboard, anche manuale). Nomi mai visti
+  → la pipeline abortisce con fail (aggiungere comparsa a `KNOWN_EXTRA_PLAYERS`,
+  variante a `PLAYER_ALIASES` + `CANONICAL`).
+- Numerazione: se uno stesso numero compare con 2 URL diversi la pipeline logga
+  `AVVISO` e tiene l'ultimo — ricontrollare a mano prima di proseguire.
+- Spot-check canale nei test: inserito dopo l'ultima riga esistente (generico,
+  non più anchor fissi); se il pattern sparisce la pipeline abortisce.
+- Commit: avvisa (`AVVISO`) se ci sono modifiche trackate fuori `COMMIT_FILES`.
 
 ### Passo 7 — Validare lo scoreboard (checksum obbligatori, per ogni giocatore)
 
@@ -289,17 +296,23 @@ git revert HEAD --no-edit && git push origin main   # via sicura (redeploy autom
 ```
 Mai `reset --force` su `main` condiviso col deploy.
 
-## Nomi canonici giocatori (alias visti nei titoli)
+## Nomi canonici giocatori (source of truth = codice, non questa lista)
 
-Canonica → varianti da normalizzare nello scoreboard JSON prima di integrare:
-- `Just Rohn` ← Rohn nei titoli (canale video: `Just Rohn JR`)
-- `nonsonodread` ← Dread nei titoli (canale video: `Around Dread`)
-- `GaBBo` ← Gabbo nei titoli (canale video: `GaBBoDSQ`)
-- `ilMasseo` ← Masseo nei titoli
+Mappe alias: `PLAYER_ALIASES` + `KNOWN_EXTRA_PLAYERS` in
+`scripts/auto_update_golfatina.py`, `CANONICAL` + `ROSTER` in
+`scripts/extract_scoreboard.py`. Tenerle sincronizzate quando si aggiunge un nome.
+
+- `Just Rohn` ← Rohn, Rohn JR (canale video: `Just Rohn JR`)
+- `nonsonodread` ← Dread (canale video: `Around Dread`)
+- `GaBBo` ← Gabbo, Gabbines (canale video: `GaBBoDSQ`)
+- `ilMasseo` ← Masseo (canale video archivio: `oessaM`)
 - `Delux` (canale video: `Delux`), `Mollu` (canale video: `Mollu`),
-  `JTaz` (canale video: `JTaz Extra`); canale video `oessaM` = archivio Masseo
-- Comparse extra non fisse (es. `CannucciaBianca`, Paolo, Cannuccia): entrano nello
-  scoreboard del singolo match ma NON nei 7 fissi del forecast.
+  `JTaz` (canale video: `JTaz Extra`)
+- Comparse storiche con scoreboard (fuori dai 7 fissi forecast):
+  `Fava`, `Just Marzaa`, `nbayungchape`
+- Comparse future mai viste (es. ospiti tipo Cannuccia/Paolo se un giorno avranno
+  scoreboard): la pipeline abortisce apposta → aggiungerle a `KNOWN_EXTRA_PLAYERS`
+  (+ alias se serve) e rilanciare.
 - Canale video ≠ nome giocatore: il canale si verifica via oEmbed (Passo 4), mai dal titolo.
 
 ## Casi speciali noti (non sono bug)
