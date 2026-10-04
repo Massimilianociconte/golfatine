@@ -85,6 +85,7 @@ PLAYER_ALIASES = {
     "ilmasseo": "ilMasseo", "masseo": "ilMasseo",
     "gabbo": "GaBBo", "gabb0": "GaBBo", "gab0": "GaBBo",
     "gabbbo": "GaBBo", "gabbines": "GaBBo",
+    "cannucciabianca": "GaBBo", "cannuccia": "GaBBo",
     "mollu": "Mollu",
     "jtaz": "JTaz", "jtazz": "JTaz",
     "fava": "Fava",
