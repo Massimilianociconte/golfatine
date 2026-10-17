@@ -1,18 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
-  Users, 
-  Trophy, 
   Target, 
-  Flame, 
-  TrendingUp, 
   Swords, 
   Quote, 
-  CheckCircle2, 
-  Eye, 
-  Calendar,
-  Sparkles,
-  Zap,
-  Award
+  Eye
 } from 'lucide-react';
 import { PLAYERS_LIST, PLAYERS_DATA, MATCHES_DATA, GolfatinaMatch, PlayerProfile } from '../data/golfatineData';
 import { sound } from '../utils/audio';
@@ -31,7 +22,6 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
   onOpenMatchModal,
   onStartH2HWith,
 }) => {
-
   const [activeTab, setActiveTab] = useState<string>(selectedPlayerName || 'Just Rohn');
 
   // React to external selectedPlayerName prop changes (e.g. from Leaderboard, Grid, or URL deep link)
@@ -73,15 +63,17 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
 
   const radarPoints = useMemo(() => {
     const center = 100;
-    const radius = 70;
+    const radius = 68;
     return radarMetrics.map((m, i) => {
       const angle = (Math.PI * 2 / 5) * i - Math.PI / 2;
       const r = (m.value / 100) * radius;
       return {
         x: center + r * Math.cos(angle),
         y: center + r * Math.sin(angle),
-        labelX: center + (radius + 20) * Math.cos(angle),
-        labelY: center + (radius + 15) * Math.sin(angle),
+        axisEndX: center + radius * Math.cos(angle),
+        axisEndY: center + radius * Math.sin(angle),
+        labelX: center + (radius + 21) * Math.cos(angle),
+        labelY: center + (radius + 16) * Math.sin(angle),
         label: m.label,
         val: m.value,
       };
@@ -96,7 +88,7 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
     <div className="space-y-8">
       
       {/* Player Selector Bar */}
-      <div className="premium-card p-3 rounded-2xl border border-white/[0.08] overflow-x-auto no-scrollbar">
+      <div className="premium-card specular-top p-3 rounded-2xl border border-white/[0.08] overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-2 min-w-max">
           {PLAYERS_LIST.map((p: PlayerProfile) => {
             const isSelected = activeTab === p.name;
@@ -110,17 +102,17 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
                   setActiveTab(p.name);
                   if (onSelectPlayer) onSelectPlayer(p.name);
                 }}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#18231d] text-white border border-[#d4af37]/40 shadow-sm ring-1 ring-[#d4af37]/20'
-                    : 'bg-[#090d0b] text-slate-400 hover:text-slate-200 border border-white/[0.04]'
+                    ? 'bg-gradient-to-b from-[#1a2820] to-[#111b15] text-white border border-[#d4af37]/50 shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                    : 'bg-[#080c0a] text-slate-400 hover:text-slate-200 hover:bg-[#0e1511] border border-white/[0.05]'
                 }`}
               >
-                <div className="w-5 h-5 rounded-full overflow-hidden shrink-0 border border-white/10">
+                <div className={`w-5 h-5 rounded-full overflow-hidden shrink-0 border ${isSelected ? 'border-[#d4af37]' : 'border-white/10'}`}>
                   <img src={avatarImg} alt={p.name} className="w-full h-full object-cover" />
                 </div>
                 <span>{p.name}</span>
-                <span className="font-mono text-[10px] text-[#d4af37]">({p.wins} V)</span>
+                <span className={`font-mono text-[10px] ${isSelected ? 'text-[#f5e6b3] font-bold' : 'text-[#d4af37]/80'}`}>({p.wins}V)</span>
               </button>
             );
           })}
@@ -131,28 +123,35 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Left Column: Player Identity & Lore */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-5">
           
-          <div className="premium-card p-6 rounded-2xl border border-white/[0.08] space-y-5">
+          <div className="premium-card specular-top p-6 rounded-2xl border border-white/[0.08] space-y-5 relative overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full opacity-15"
+              style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)' }}
+            />
             
             {/* Header */}
-            <div className="flex items-start justify-between gap-4">
+            <div className="relative z-10 flex items-start justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#d4af37] shadow-xl shrink-0">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[#d4af37] shadow-[0_0_25px_rgba(212,175,55,0.25)] shrink-0">
                   <img src={getPlayerAvatar(profile.name)} alt={profile.name} className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl sm:text-2xl font-black font-heading text-white">{profile.name}</h2>
+                    <h2 className="text-xl sm:text-2xl font-black font-heading text-white tracking-tight">{profile.name}</h2>
                   </div>
-                  <p className="text-xs font-semibold text-[#d4af37]">{profile.nickname}</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">Ruolo: <strong className="text-slate-200">{profile.badge}</strong></p>
+                  <p className="text-xs font-bold text-[#f5e6b3] mt-0.5">{profile.nickname}</p>
+                  <p className="text-[11px] text-slate-400 mt-1">
+                    Ruolo: <strong className="text-slate-200 font-semibold">{profile.badge}</strong>
+                  </p>
                 </div>
               </div>
 
               <button
                 onClick={() => onStartH2HWith(playerStats.name)}
-                className="px-3 py-1.5 rounded-lg bg-[#141d18] hover:bg-[#1a2620] border border-white/[0.1] text-xs font-semibold text-slate-200 flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-[#111915] hover:bg-[#18241e] border border-rose-500/30 text-xs font-bold text-slate-100 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
                 title="Confronta in 1v1"
               >
                 <Swords className="w-3.5 h-3.5 text-rose-400" />
@@ -163,12 +162,12 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
             {/* Aliases Pills */}
             {profile.aliases && profile.aliases.length > 0 && (
               <div className="space-y-1.5 pt-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block">
                   Soprannomi & Deformazioni Storiche:
                 </span>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1.5">
                   {profile.aliases.map((alias, i) => (
-                    <span key={i} className="px-2 py-0.5 rounded bg-white/[0.04] text-slate-300 border border-white/[0.06] text-[10px] font-mono">
+                    <span key={i} className="px-2.5 py-0.5 rounded-md bg-white/[0.035] text-slate-300 border border-white/[0.07] text-[10px] font-mono">
                       {alias}
                     </span>
                   ))}
@@ -177,7 +176,7 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
             )}
 
             {/* Signature Quote */}
-            <div className="bg-[#090d0b] p-3 rounded-xl border-l-2 border-[#d4af37] text-xs text-slate-300 italic flex items-start gap-2">
+            <div className="bg-[#070b09] p-3.5 rounded-xl border-l-2 border-[#d4af37] text-xs text-slate-200 italic flex items-start gap-2.5">
               <Quote className="w-4 h-4 text-[#d4af37] shrink-0 mt-0.5" />
               <span>"{profile.quote}"</span>
             </div>
@@ -188,26 +187,26 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
             </p>
 
             {/* Lore Details */}
-            <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-              <div className="bg-[#090d0b] p-3 rounded-xl border border-white/[0.04]">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block mb-1">Nemesi Storica</span>
-                <span className="text-rose-400 font-semibold">{profile.nemesis || 'Tutti'}</span>
+            <div className="grid grid-cols-2 gap-3 pt-1 text-xs">
+              <div className="bg-[#070b09] p-3.5 rounded-xl border border-white/[0.05]">
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Nemesi Storica</span>
+                <span className="text-rose-400 font-bold font-heading text-sm">{profile.nemesis || 'Tutti'}</span>
               </div>
-              <div className="bg-[#090d0b] p-3 rounded-xl border border-white/[0.04]">
-                <span className="text-[10px] text-slate-500 font-bold uppercase block mb-1">Podium Rate</span>
-                <span className="text-emerald-400 font-semibold">{profile.podiumRate}%</span>
+              <div className="bg-[#070b09] p-3.5 rounded-xl border border-white/[0.05]">
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Podium Rate</span>
+                <span className="text-emerald-400 font-bold font-mono text-sm">{profile.podiumRate}%</span>
               </div>
             </div>
 
             {/* Iconic Memes */}
             {profile.iconicMemes && profile.iconicMemes.length > 0 && (
-              <div className="bg-[#090d0b] p-3 rounded-xl border border-white/[0.04] space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#d4af37] block">
+              <div className="bg-[#070b09] p-3.5 rounded-xl border border-white/[0.05] space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#d4af37] block">
                   Dinamiche & Momenti Cult Associati:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {profile.iconicMemes.map((m, i) => (
-                    <span key={i} className="px-2 py-0.5 rounded bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 text-[10px] font-semibold">
+                    <span key={i} className="px-2.5 py-0.5 rounded-md bg-[#d4af37]/10 text-[#f5e6b3] border border-[#d4af37]/25 text-[10px] font-semibold">
                       ⚡ {m}
                     </span>
                   ))}
@@ -219,29 +218,29 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
 
           {/* Key Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="premium-card p-3.5 rounded-xl text-center">
-              <div className="text-[10px] text-slate-500 uppercase font-bold">Vittorie</div>
-              <div className="text-xl font-mono font-bold text-[#d4af37] mt-1">{playerStats.wins}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">{playerStats.winRate}% Win Rate</div>
+            <div className="premium-card specular-top p-3.5 rounded-xl text-center">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Vittorie</div>
+              <div className="text-xl font-mono font-black text-[#f5e6b3] mt-1">{playerStats.wins}</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 font-mono">{playerStats.winRate}% Win Rate</div>
             </div>
 
-            <div className="premium-card p-3.5 rounded-xl text-center">
-              <div className="text-[10px] text-slate-500 uppercase font-bold">Hole-in-One</div>
-              <div className="text-xl font-mono font-bold text-emerald-400 mt-1">{playerStats.totalHIOs}</div>
+            <div className="premium-card specular-top p-3.5 rounded-xl text-center">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Hole-in-One</div>
+              <div className="text-xl font-mono font-black text-emerald-400 mt-1">{playerStats.totalHIOs}</div>
               <div className="text-[10px] text-slate-400 mt-0.5 font-mono">{(playerStats.totalHIOs / Math.max(1, playerStats.matchesPlayed)).toFixed(1)} / match</div>
             </div>
 
-            <div className="premium-card p-3.5 rounded-xl text-center">
-              <div className="text-[10px] text-slate-500 uppercase font-bold">Best Score</div>
-              <div className="text-xl font-mono font-bold text-white mt-1">
+            <div className="premium-card specular-top p-3.5 rounded-xl text-center">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Best Score</div>
+              <div className="text-xl font-mono font-black text-white mt-1">
                 {playerStats.bestDiffPar < 0 ? playerStats.bestDiffPar : `+${playerStats.bestDiffPar}`}
               </div>
               <div className="text-[10px] text-slate-400 mt-0.5">Scarto dal Par</div>
             </div>
 
-            <div className="premium-card p-3.5 rounded-xl text-center">
-              <div className="text-[10px] text-slate-500 uppercase font-bold">Disastri (10+)</div>
-              <div className="text-xl font-mono font-bold text-rose-400 mt-1">{playerStats.totalDisasters}</div>
+            <div className="premium-card specular-top p-3.5 rounded-xl text-center">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Disastri (10+)</div>
+              <div className="text-xl font-mono font-black text-rose-400 mt-1">{playerStats.totalDisasters}</div>
               <div className="text-[10px] text-slate-400 mt-0.5">Buche al Cap</div>
             </div>
           </div>
@@ -249,39 +248,60 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
         </div>
 
         {/* Right Column: Radar Chart & Stats */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-5">
           
           {/* Radar Chart */}
-          <div className="premium-card p-6 rounded-2xl border border-white/[0.08] space-y-3">
+          <div className="premium-card specular-top p-6 rounded-2xl border border-white/[0.08] space-y-3">
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-white flex items-center gap-1.5">
                 <Target className="w-3.5 h-3.5 text-[#d4af37]" />
-                Radar Attributi Giocatore
+                Radar Telemetrico Attributi
               </span>
-              <span className="text-[10px] font-mono text-slate-500">Valutazione Melagoodo</span>
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Index Melagoodo</span>
             </div>
 
-            <div className="relative aspect-square max-w-[280px] mx-auto">
+            <div className="relative aspect-square max-w-[290px] mx-auto">
               <svg className="w-full h-full" viewBox="0 0 200 200">
+                <defs>
+                  <radialGradient id="radarFillGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="rgba(212, 175, 55, 0.38)" />
+                    <stop offset="100%" stopColor="rgba(16, 185, 129, 0.14)" />
+                  </radialGradient>
+                </defs>
+
+                {/* Axis spokes */}
+                {radarPoints.map((p, i) => (
+                  <line
+                    key={`axis-${i}`}
+                    x1={100}
+                    y1={100}
+                    x2={p.axisEndX}
+                    y2={p.axisEndY}
+                    stroke="rgba(255, 255, 255, 0.06)"
+                    strokeWidth="1"
+                  />
+                ))}
+
                 {/* Background radar rings */}
                 {[0.25, 0.5, 0.75, 1].map((scale, i) => (
                   <polygon
                     key={i}
-                    points={radarPoints.map(p => {
-                      const angle = (Math.PI * 2 / 5) * radarPoints.indexOf(p) - Math.PI / 2;
-                      const r = 70 * scale;
+                    points={radarPoints.map((_, idx) => {
+                      const angle = (Math.PI * 2 / 5) * idx - Math.PI / 2;
+                      const r = 68 * scale;
                       return `${100 + r * Math.cos(angle)},${100 + r * Math.sin(angle)}`;
                     }).join(' ')}
                     fill="none"
                     stroke="rgba(255, 255, 255, 0.08)"
                     strokeWidth="1"
+                    strokeDasharray={i < 3 ? '2 2' : undefined}
                   />
                 ))}
 
                 {/* Radar Area */}
                 <polygon
                   points={polygonPoints}
-                  fill="rgba(212, 175, 55, 0.2)"
+                  fill="url(#radarFillGrad)"
                   stroke="#d4af37"
                   strokeWidth="2"
                 />
@@ -293,9 +313,9 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
                     cx={p.x}
                     cy={p.y}
                     r="3.5"
-                    fill="#d4af37"
-                    stroke="#000"
-                    strokeWidth="1"
+                    fill="#f5e6b3"
+                    stroke="#070b09"
+                    strokeWidth="1.5"
                   />
                 ))}
 
@@ -307,10 +327,10 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
                     y={p.labelY}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill="#94a3b8"
-                    fontSize="9"
+                    fill="#cbd5e1"
+                    fontSize="8.5"
                     fontFamily="var(--font-jakarta)"
-                    fontWeight="600"
+                    fontWeight="700"
                   >
                     {p.label} ({p.val})
                   </text>
@@ -320,10 +340,10 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
           </div>
 
           {/* Career Highlights */}
-          <div className="premium-card p-4 rounded-xl space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Stile e Strategia</span>
+          <div className="premium-card specular-top p-4 rounded-xl space-y-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block">Stile e Rendimento Sul Campo</span>
             <p className="text-xs text-slate-300 leading-relaxed">
-              {profile.name} vanta una media di <strong className="text-white font-mono">{profile.avgScore.toFixed(1)}</strong> colpi a partita con un differenziale medio di <strong className="text-emerald-400 font-mono">{profile.avgDiffPar > 0 ? `+${profile.avgDiffPar.toFixed(1)}` : profile.avgDiffPar.toFixed(1)}</strong> dal par.
+              {profile.name} vanta una media di <strong className="text-white font-mono">{profile.avgScore.toFixed(1)}</strong> colpi a partita con un differenziale medio di <strong className="text-emerald-400 font-mono">{profile.avgDiffPar > 0 ? `+${profile.avgDiffPar.toFixed(1)}` : profile.avgDiffPar.toFixed(1)}</strong> dal par su <strong className="text-slate-200 font-mono">{profile.totalHoles}</strong> buche giocate.
             </p>
           </div>
 
@@ -332,49 +352,49 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
       </div>
 
       {/* Match History for this Player */}
-      <div className="space-y-4 pt-4">
+      <div className="space-y-4 pt-4 cv-section">
         <h3 className="text-base font-bold font-heading text-white flex items-center gap-2">
           <span>📜</span> Storico Partite Disputate da {playerStats.name} ({playerMatches.length})
         </h3>
 
-        <div className="premium-card rounded-xl border border-white/[0.08] overflow-hidden bg-[#090d0b]">
+        <div className="premium-card specular-top rounded-2xl border border-white/[0.08] overflow-hidden bg-[#070b09]">
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse tabular-nums">
               <thead>
-                <tr className="bg-[#0f1512] text-slate-400 font-semibold border-b border-white/[0.08]">
-                  <th className="py-2.5 px-3">Partita</th>
-                  <th className="py-2.5 px-2 text-center">Posizione</th>
-                  <th className="py-2.5 px-2 text-center">Score</th>
-                  <th className="py-2.5 px-2 text-center">Diff Par</th>
-                  <th className="py-2.5 px-2 text-center">HIO</th>
-                  <th className="py-2.5 px-2 text-center">Disastri</th>
-                  <th className="py-2.5 px-3 text-right">Azione</th>
+                <tr className="bg-[#0d1410] text-slate-400 font-semibold border-b border-white/[0.08] text-[11px] uppercase tracking-wider">
+                  <th className="py-3 px-3">Partita</th>
+                  <th className="py-3 px-2 text-center">Posizione</th>
+                  <th className="py-3 px-2 text-center">Score</th>
+                  <th className="py-3 px-2 text-center">Diff Par</th>
+                  <th className="py-3 px-2 text-center">HIO</th>
+                  <th className="py-3 px-2 text-center">Disastri</th>
+                  <th className="py-3 px-3 text-right">Azione</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
-                {playerMatches.map(({ match, entry }, idx) => (
+                {playerMatches.map(({ match, entry }) => (
                   <tr 
                     key={match.id}
                     onClick={() => {
                       sound.playClick();
                       onOpenMatchModal(match);
                     }}
-                    className="hover:bg-white/[0.02] transition-colors cursor-pointer"
+                    className="hover:bg-white/[0.03] transition-colors cursor-pointer group"
                   >
-                    <td className="py-2.5 px-3 font-medium text-white">
+                    <td className="py-2.5 px-3 font-medium text-white group-hover:text-[#f5e6b3] transition-colors">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-slate-500 text-[10px]">#{match.id}</span>
+                        <span className="font-mono text-[#d4af37]/80 text-[10px] font-bold">#{match.id}</span>
                         <span className="truncate max-w-[200px] sm:max-w-xs">{match.title}</span>
                       </div>
                     </td>
 
                     <td className="py-2.5 px-2 text-center font-mono font-bold">
                       {entry.position === 1 ? (
-                        <span className="text-[#d4af37]">1°</span>
+                        <span className="px-1.5 py-0.5 rounded bg-[#d4af37]/20 text-[#f5e6b3] border border-[#d4af37]/40 text-[10px]">1°</span>
                       ) : entry.position === 2 ? (
-                        <span className="text-slate-300">2°</span>
+                        <span className="text-slate-200">2°</span>
                       ) : entry.position === 3 ? (
-                        <span className="text-amber-600">3°</span>
+                        <span className="text-amber-500">3°</span>
                       ) : (
                         <span className="text-slate-500">{entry.position}°</span>
                       )}
@@ -384,13 +404,13 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
                       {entry.totalScore}
                     </td>
 
-                    <td className="py-2.5 px-2 text-center font-mono font-medium">
+                    <td className="py-2.5 px-2 text-center font-mono font-semibold">
                       <span className={entry.diffPar < 0 ? 'text-emerald-400' : entry.diffPar === 0 ? 'text-slate-400' : 'text-rose-400'}>
                         {entry.diffPar > 0 ? `+${entry.diffPar}` : entry.diffPar === 0 ? 'E' : entry.diffPar}
                       </span>
                     </td>
 
-                    <td className="py-2.5 px-2 text-center font-mono text-[#d4af37] font-semibold">
+                    <td className="py-2.5 px-2 text-center font-mono text-[#f5e6b3] font-semibold">
                       {entry.hios > 0 ? entry.hios : '-'}
                     </td>
 
@@ -399,8 +419,8 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
                     </td>
 
                     <td className="py-2.5 px-3 text-right">
-                      <span className="text-[11px] text-slate-400 hover:text-white flex items-center justify-end gap-1">
-                        <Eye className="w-3 h-3" />
+                      <span className="text-[11px] text-slate-400 group-hover:text-white flex items-center justify-end gap-1 transition-colors">
+                        <Eye className="w-3 h-3 text-[#d4af37]" />
                         <span>Scorecard</span>
                       </span>
                     </td>
@@ -416,5 +436,6 @@ export const PlayerProfilesView: React.FC<PlayerProfilesViewProps> = ({
     </div>
   );
 };
+
 
 

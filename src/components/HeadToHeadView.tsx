@@ -91,29 +91,36 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
     <div className="space-y-8">
       
       {/* Top Banner */}
-      <div className="premium-card p-6 sm:p-8 rounded-2xl border border-white/[0.08]">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-300 border border-rose-500/20 flex items-center gap-1.5">
-            <Swords className="w-3.5 h-3.5" />
-            1v1 Battle Arena
-          </span>
-          <span className="text-xs text-slate-400">Confronto Diretto Storico</span>
+      <div className="premium-card specular-top p-6 sm:p-8 rounded-2xl border border-white/[0.08] relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(244,63,94,0.35) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest bg-rose-500/15 text-rose-300 border border-rose-500/30 flex items-center gap-1.5">
+              <Swords className="w-3.5 h-3.5" />
+              1v1 Battle Arena
+            </span>
+            <span className="text-xs font-mono text-slate-400">Confronto Diretto Storico</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black font-heading text-white tracking-tight">
+            Testa a Testa (Head-to-Head)
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mt-1 leading-relaxed">
+            Analisi comparativa di tutte le partite in cui i due giocatori di <strong>Melagoodo</strong> si sono affrontati sullo stesso green.
+          </p>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black font-heading text-white tracking-tight">
-          Testa a Testa (Head-to-Head)
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mt-1">
-          Analisi comparativa di tutte le partite in cui i due giocatori di <strong>Melagoodo</strong> si sono affrontati sullo stesso green.
-        </p>
       </div>
 
       {/* Selectors & Fighter Cards */}
       <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
         
         {/* Player 1 Card */}
-        <div className="md:col-span-5 premium-card p-5 rounded-2xl border border-white/[0.08] space-y-3">
+        <div className="md:col-span-5 premium-card specular-top p-5 rounded-2xl border border-[#d4af37]/30 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Giocatore 1</span>
+            <span className="text-[11px] text-[#f5e6b3] font-bold uppercase tracking-wider">Angolo Oro • P1</span>
             <select
               value={p1Name}
               onChange={(e) => {
@@ -131,7 +138,7 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
           </div>
 
           <div className="flex items-center gap-3.5">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-white/10 shadow-md shrink-0">
+            <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-[#d4af37]/70 shadow-md shrink-0">
               <img src={getPlayerAvatar(p1.name)} alt={p1.name} className="w-full h-full object-cover" />
             </div>
             <div>
@@ -145,7 +152,7 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
         <div className="md:col-span-1 flex justify-center">
           <button
             onClick={handleSwap}
-            className="p-3 rounded-full bg-[#141d18] hover:bg-[#1a2620] border border-white/[0.1] text-slate-300 hover:text-white transition-all shadow-md cursor-pointer hover:rotate-180 duration-300"
+            className="p-3.5 rounded-full bg-[#111915] hover:bg-[#19261f] border border-[#d4af37]/30 text-slate-200 hover:text-white transition-all shadow-lg cursor-pointer hover:rotate-180 duration-300"
             title="Inverti Giocatori"
           >
             <ArrowLeftRight className="w-4 h-4 text-[#d4af37]" />
@@ -153,9 +160,9 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
         </div>
 
         {/* Player 2 Card */}
-        <div className="md:col-span-5 premium-card p-5 rounded-2xl border border-white/[0.08] space-y-3">
+        <div className="md:col-span-5 premium-card specular-top p-5 rounded-2xl border border-emerald-500/25 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-bold uppercase">Giocatore 2</span>
+            <span className="text-[11px] text-emerald-400 font-bold uppercase tracking-wider">Angolo Smeraldo • P2</span>
             <select
               value={p2Name}
               onChange={(e) => {
@@ -173,7 +180,7 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
           </div>
 
           <div className="flex items-center gap-3.5">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-white/10 shadow-md shrink-0">
+            <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-emerald-500/60 shadow-md shrink-0">
               <img src={getPlayerAvatar(p2.name)} alt={p2.name} className="w-full h-full object-cover" />
             </div>
             <div>
@@ -186,22 +193,22 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
       </div>
 
       {/* Shared Matches Battle Bar */}
-      <div className="premium-card p-6 rounded-2xl border border-white/[0.08] space-y-4 text-center">
+      <div className="premium-card specular-top p-6 rounded-2xl border border-white/[0.08] space-y-4 text-center">
         
         <div className="flex justify-between items-center text-xs font-mono">
-          <span className="font-bold text-[#d4af37] text-sm">{p1WinsDirect} Vittorie ({p1.name})</span>
-          <span className="text-slate-500">{totalShared} Scontri Diretti</span>
-          <span className="font-bold text-slate-300 text-sm">{p2WinsDirect} Vittorie ({p2.name})</span>
+          <span className="font-bold text-[#f5e6b3] text-sm">{p1WinsDirect} Vittorie ({p1.name})</span>
+          <span className="text-slate-400 bg-white/[0.04] px-2.5 py-0.5 rounded-md border border-white/[0.06]">{totalShared} Scontri Diretti{ties > 0 ? ` • ${ties} Parità` : ''}</span>
+          <span className="font-bold text-emerald-400 text-sm">{p2WinsDirect} Vittorie ({p2.name})</span>
         </div>
 
         {/* Ratio Split Bar */}
-        <div className="w-full h-3 rounded-full bg-[#090d0b] overflow-hidden flex border border-white/[0.06]">
+        <div className="w-full h-3.5 rounded-full bg-[#070b09] overflow-hidden flex border border-white/[0.08] p-0.5 gap-0.5">
           <div
-            className="h-full bg-gradient-to-r from-[#d4af37] to-amber-500 transition-all duration-500"
+            className="h-full rounded-l-full bg-gradient-to-r from-[#d4af37] to-[#f5e6b3] transition-all duration-500"
             style={{ width: `${p1Ratio}%` }}
           />
           <div
-            className="h-full bg-slate-600 transition-all duration-500"
+            className="h-full rounded-r-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-500"
             style={{ width: `${100 - p1Ratio}%` }}
           />
         </div>
@@ -230,17 +237,17 @@ const HeadToHeadViewComponent: React.FC<HeadToHeadViewProps> = ({
       </div>
 
       {/* Shared Matches History Table */}
-      <div className="space-y-3">
+      <div className="space-y-3 cv-section">
         <h3 className="text-base font-bold font-heading text-white flex items-center gap-2">
           <Swords className="w-4 h-4 text-[#d4af37]" />
           <span>Elenco Scontri Diretti ({sharedMatches.length})</span>
         </h3>
 
-        <div className="premium-card rounded-xl border border-white/[0.08] overflow-hidden bg-[#090d0b]">
+        <div className="premium-card specular-top rounded-2xl border border-white/[0.08] overflow-hidden bg-[#070b09]">
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse tabular-nums">
               <thead>
-                <tr className="bg-[#0f1512] text-slate-400 font-semibold border-b border-white/[0.08]">
+                <tr className="bg-[#0d1410] text-slate-400 font-semibold border-b border-white/[0.08] text-[11px] uppercase tracking-wider">
                   <th className="py-2.5 px-3">Partita</th>
                   <th className="py-2.5 px-2 text-center">{p1.name}</th>
                   <th className="py-2.5 px-2 text-center">{p2.name}</th>

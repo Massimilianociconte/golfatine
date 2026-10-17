@@ -138,22 +138,22 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
   return (
     <div className="space-y-6">
       
-      {/* Controls & Filter Bar */}
-      <div className="premium-card p-4 rounded-2xl space-y-3.5 border border-white/[0.08]">
+      {/* Controls & Telemetry Filter Console */}
+      <div className="premium-card specular-top p-4 sm:p-5 rounded-2xl space-y-4">
         
         {/* Top Controls Row */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           
           {/* Search Box */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4af37]/70 pointer-events-none" />
             <input
               type="text"
-              placeholder="Cerca per titolo, numero episodio (#29), giocatore, autore, data..."
+              placeholder="Cerca per titolo, numero episodio (#29), giocatore, canale, data..."
               aria-label="Cerca le Golfatine"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-lg premium-input text-slate-200 placeholder-slate-500 focus:outline-none"
+              className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm rounded-xl premium-input text-slate-100 placeholder-slate-500 focus:outline-none"
             />
             {searchQuery && (
               <button
@@ -168,7 +168,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
 
           {/* Sort Selector */}
           <div className="flex items-center gap-2 shrink-0">
-            <ArrowDownUp className="w-3.5 h-3.5 text-slate-400" />
+            <ArrowDownUp className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
             <select
               value={sortBy}
               aria-label="Ordina le Golfatine"
@@ -176,7 +176,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
                 sound.playClick();
                 setSortBy(e.target.value as any);
               }}
-              className="premium-input px-3 py-2 text-xs rounded-lg text-slate-200 focus:outline-none cursor-pointer"
+              className="premium-input px-3.5 py-2.5 text-xs font-medium rounded-xl text-slate-200 focus:outline-none cursor-pointer"
             >
               <option value="id-desc">Dal più recente (#{maxMatchId} → #1)</option>
               <option value="id-asc">Dal primo episodio (#1 → #{maxMatchId})</option>
@@ -188,7 +188,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
 
           {/* Month Filter */}
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400 whitespace-nowrap">
               Data:
             </span>
             <select
@@ -198,7 +198,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
                 sound.playClick();
                 setSelectedMonthFilter(e.target.value);
               }}
-              className="premium-input px-3 py-2 text-xs rounded-lg text-slate-200 focus:outline-none cursor-pointer"
+              className="premium-input px-3.5 py-2.5 text-xs font-mono rounded-xl text-slate-200 focus:outline-none cursor-pointer"
             >
               <option value="all">Tutte le date ({MATCHES_DATA.length})</option>
               {monthOptions.map((opt) => (
@@ -214,10 +214,10 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
         {/* Youtuber Filter Chips: each player maps to their exact YouTube
             publisher channel (verified). Clicking filters ONLY the videos
             published on that channel — never by title text. */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 shrink-0 mr-1 flex items-center gap-1">
-            <Filter className="w-3 h-3 text-slate-400" />
-            Filtra Youtuber:
+        <div className="flex items-center gap-2 overflow-x-auto pt-1 pb-1 no-scrollbar text-xs border-t border-white/[0.06]">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400 shrink-0 mr-1 flex items-center gap-1.5">
+            <Filter className="w-3 h-3 text-[#d4af37]" />
+            Canale:
           </span>
 
           <button
@@ -225,10 +225,10 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
               sound.playClick();
               setChannelFilter('all');
             }}
-            className={`px-3 py-1 rounded-lg font-semibold text-xs transition-all shrink-0 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl font-semibold text-xs transition-all shrink-0 cursor-pointer ${
               channelFilter === 'all'
-                ? 'bg-white text-slate-950 shadow-sm'
-                : 'bg-[#090d0b] text-slate-400 hover:text-slate-200 border border-white/[0.06]'
+                ? 'bg-gradient-to-r from-[#f5e6b3] to-[#d4af37] text-slate-950 font-bold shadow-[0_2px_12px_rgba(212,175,55,0.3)]'
+                : 'bg-[#080d0a] text-slate-400 hover:text-slate-200 border border-white/[0.07] hover:border-white/[0.15]'
             }`}
           >
             Tutti ({MATCHES_DATA.length})
@@ -248,19 +248,19 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
                   setChannelFilter(channel);
                 }}
                 title={`Mostra solo i video pubblicati sul canale ${channel}`}
-                className={`px-2.5 py-1 rounded-lg font-medium text-xs transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl font-medium text-xs transition-all shrink-0 flex items-center gap-2 cursor-pointer ${
                   isSelected
-                    ? 'bg-[#18241e] text-[#d4af37] border border-[#d4af37]/40 shadow-sm font-semibold'
-                    : 'bg-[#090d0b] text-slate-400 hover:text-slate-200 border border-white/[0.06]'
+                    ? 'bg-gradient-to-b from-[#1a2820] to-[#111b15] text-[#f5e6b3] border border-[#d4af37]/50 shadow-[0_2px_12px_rgba(212,175,55,0.18)] font-bold'
+                    : 'bg-[#080d0a] text-slate-400 hover:text-slate-200 border border-white/[0.07] hover:border-white/[0.15]'
                 }`}
               >
                 {avatarImg && (
-                  <div className="w-4 h-4 rounded-full overflow-hidden shrink-0 border border-white/10">
+                  <div className={`w-4.5 h-4.5 rounded-full overflow-hidden shrink-0 border ${isSelected ? 'border-[#d4af37]' : 'border-white/15'}`}>
                     <img src={avatarImg} alt={owner} className="w-full h-full object-cover" />
                   </div>
                 )}
                 <span>{channel}</span>
-                <span className="text-[10px] text-slate-400 font-mono">({count})</span>
+                <span className={`text-[10px] font-mono ${isSelected ? 'text-[#d4af37]' : 'text-slate-500'}`}>({count})</span>
               </button>
             );
           })}
@@ -269,9 +269,9 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
       </div>
 
       {/* Results Count Banner */}
-      <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 px-1">
         <div>
-          Mostrando <strong className="text-slate-200 font-mono">{filteredMatches.length}</strong> su <strong className="text-slate-200 font-mono">{MATCHES_DATA.length}</strong> Schede in archivio <span className="text-slate-500">(98 episodi ufficiali #1–#98)</span>
+          Mostrando <strong className="text-white font-mono">{filteredMatches.length}</strong> su <strong className="text-white font-mono">{MATCHES_DATA.length}</strong> Schede in archivio <span className="text-slate-500">(98 episodi ufficiali #1–#98)</span>
           {channelFilter !== 'all' && (
             <span className="ml-1 text-slate-400">
               pubblicate da <strong className="text-[#d4af37]">{channelFilter}</strong>
@@ -279,7 +279,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
           )}
           {selectedMonthFilter !== 'all' && (
             <span className="ml-1 text-slate-400">
-              del <strong className="font-mono">{selectedMonthFilter}</strong>
+              del <strong className="font-mono text-slate-200">{selectedMonthFilter}</strong>
             </span>
           )}
         </div>
@@ -287,7 +287,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
         {hasActiveFilters && (
           <button
             onClick={resetAllFilters}
-            className="text-xs text-[#d4af37] hover:underline flex items-center gap-1 cursor-pointer"
+            className="text-xs font-semibold text-[#d4af37] hover:text-[#f5e6b3] flex items-center gap-1 cursor-pointer px-2.5 py-1 rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/25 transition-colors"
           >
             <X className="w-3 h-3" />
             Azzera filtri
@@ -296,18 +296,19 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
       </div>
 
       {/* Numbering note: official episodes are #1–#98, archive cards are fewer */}
-      <p className="text-[10px] text-slate-500 px-1 -mt-4">
+      <p className="text-[10px] font-mono text-slate-500 px-1 -mt-4">
         Numerazione ufficiale episodi #1–#98 • assenti in archivio: #14–#17 (senza scorecard) e #79 (duplicato del #30) • 93 scorecard complete
       </p>
 
       {/* Matches Grid (paginated to keep DOM small) */}
       {filteredMatches.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredMatches.slice(0, visibleCount).map((match) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {filteredMatches.slice(0, visibleCount).map((match, idx) => (
               <MatchCard
                 key={match.id}
                 match={match}
+                isAboveFold={idx < 3}
                 onOpenModal={onOpenModal}
                 onSelectPlayer={onSelectPlayer}
                 onSelectChannel={onSelectChannel}
@@ -316,29 +317,29 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
             ))}
           </div>
           {visibleCount < filteredMatches.length && (
-            <div className="flex justify-center pt-2">
+            <div className="flex justify-center pt-4">
               <button
                 onClick={() => {
                   sound.playClick();
                   setVisibleCount((c) => c + 12);
                 }}
-                className="px-5 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-xs font-semibold text-slate-200 transition-colors cursor-pointer border border-white/[0.08]"
+                className="px-6 py-3 rounded-xl premium-card premium-card-hover text-xs font-heading font-bold text-[#f5e6b3] hover:text-white transition-all cursor-pointer border border-[#d4af37]/30 flex items-center gap-2"
               >
-                Mostra altre {Math.min(12, filteredMatches.length - visibleCount)} di {filteredMatches.length} Golfatine
+                <span>Mostra altre {Math.min(12, filteredMatches.length - visibleCount)} di {filteredMatches.length} Golfatine</span>
               </button>
             </div>
           )}
         </>
       ) : (
         <div className="premium-card p-12 text-center rounded-2xl space-y-3">
-          <Search className="w-8 h-8 text-slate-500 mx-auto" />
+          <Search className="w-8 h-8 text-[#d4af37]/60 mx-auto" />
           <h3 className="text-base font-bold text-white font-heading">Nessuna Golfatina trovata</h3>
           <p className="text-xs text-slate-400 max-w-md mx-auto">
             Nessun episodio corrisponde ai criteri di ricerca attuali. Prova a cercare un altro numero di episodio o nome giocatore.
           </p>
           <button
             onClick={resetAllFilters}
-            className="px-4 py-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-xs font-semibold text-slate-200 transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl gold-badge text-xs font-semibold transition-all cursor-pointer"
           >
             Ripristina tutti gli episodi
           </button>

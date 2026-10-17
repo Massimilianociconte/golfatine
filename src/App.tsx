@@ -236,7 +236,7 @@ export const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070b09] text-slate-100 font-sans selection:bg-[#d4af37] selection:text-black">
+    <div className="min-h-screen flex flex-col bg-transparent text-slate-100 font-sans selection:bg-[#d4af37] selection:text-black">
       
       {/* Sticky Navigation Bar */}
       <Navbar

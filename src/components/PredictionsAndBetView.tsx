@@ -16,7 +16,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { UPCOMING_MATCH_FORECAST, PlayerForecast } from '../data/forecastingData';
-import { PLAYERS_DATA } from '../data/golfatineData';
+import { PLAYERS_DATA, GLOBAL_SUMMARY } from '../data/golfatineData';
 import { sound } from '../utils/audio';
 import { triggerVictoryConfetti } from '../utils/confetti';
 import { getPlayerAvatar } from '../utils/playerAvatars';
@@ -207,31 +207,38 @@ export const PredictionsAndBetView: React.FC = () => {
     <div className="space-y-10">
       
       {/* Top Editorial Header */}
-      <div className="premium-card p-6 sm:p-8 rounded-2xl border border-white/[0.08] relative overflow-hidden">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="premium-card specular-top p-6 sm:p-8 rounded-2xl border border-white/[0.08] relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.35) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="gold-badge px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
                 <Brain className="w-3.5 h-3.5" />
                 Modello Predittivo Avanzato
               </span>
-              <span className="text-xs text-slate-400">Analisi Statistica State-of-the-Art</span>
+              <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                {forecast.modelEngine}
+              </span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-black font-heading text-white tracking-tight">
               Previsioni Analitiche & Sdrogo Bet
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl font-normal leading-relaxed">
-              Algoritmo predittivo ad altissima precisione calibrato sui dati storici di 82 partite con scorecard e 6.686 buche giocate da <strong>Melagoodo</strong>, integrato con il sistema di pronostici gratuiti della community.
+              Algoritmo predittivo ad altissima precisione calibrato sui dati storici di <strong className="text-slate-200 font-mono">{GLOBAL_SUMMARY.totalScorecards}</strong> partite con scorecard e <strong className="text-slate-200 font-mono">{GLOBAL_SUMMARY.totalHolesPlayed.toLocaleString('it-IT')}</strong> buche giocate da <strong>Melagoodo</strong>, integrato con il sistema di pronostici gratuiti della community.
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 bg-[#090d0b] px-3.5 py-2.5 rounded-xl border border-white/[0.08] text-xs text-slate-300 shrink-0">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="flex items-center gap-3 bg-[#070b09] px-4 py-3 rounded-xl border border-[#d4af37]/30 text-xs text-slate-300 shrink-0 shadow-md">
+            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
             <div>
               <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Saldo Votante</div>
-              <div className="font-mono text-[#d4af37] font-bold">
+              <div className="font-mono text-[#f5e6b3] text-sm font-black">
                 {profile.sdrogoPoints.toLocaleString()} PTS
               </div>
             </div>
@@ -254,18 +261,18 @@ export const PredictionsAndBetView: React.FC = () => {
             </p>
           </div>
 
-          <span className="text-xs text-slate-400 font-mono px-2.5 py-1 rounded bg-[#090d0b] border border-white/[0.06]">
-            Engine: {forecast.modelEngine}
+          <span className="text-[11px] text-slate-300 font-mono px-3 py-1 rounded-lg bg-[#070b09] border border-white/[0.08]">
+            Engine: <strong className="text-[#f5e6b3]">{forecast.modelEngine}</strong>
           </span>
         </div>
 
         {/* AI Narrative Commentary Card */}
-        <div className="premium-card p-4 rounded-xl border-l-2 border-[#d4af37] space-y-1">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#d4af37]">
+        <div className="premium-card specular-top p-4 sm:p-5 rounded-xl border-l-2 border-[#d4af37] space-y-1.5">
+          <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#d4af37]">
             <Sparkles className="w-3.5 h-3.5" />
             Sintesi dell'Analisi Predittiva
           </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
+          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed italic">
             "{forecast.aiAnalysis}"
           </p>
         </div>
@@ -280,21 +287,21 @@ export const PredictionsAndBetView: React.FC = () => {
             return (
               <div
                 key={p.playerName}
-                className={`premium-card p-4 rounded-xl flex flex-col justify-between transition-all ${
-                  isWinnerFav ? 'border-[#d4af37]/40 bg-[#141b17]' : 'border-white/[0.07]'
+                className={`premium-card premium-card-hover specular-top p-4 rounded-2xl flex flex-col justify-between transition-all ${
+                  isWinnerFav ? 'border-[#d4af37]/50 bg-[#0e1712] shadow-[0_14px_35px_-12px_rgba(212,175,55,0.2)]' : 'border-white/[0.07]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0">
+                      <div className={`w-9 h-9 rounded-xl overflow-hidden border shrink-0 ${isWinnerFav ? 'border-[#d4af37]' : 'border-white/15'}`}>
                         <img src={avatarImg} alt={p.playerName} className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs font-bold text-white font-heading">{p.playerName}</span>
                           {isWinnerFav && (
-                            <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#d4af37] text-slate-950 font-bold">
+                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-gradient-to-r from-[#d4af37] to-[#f5e6b3] text-slate-950 font-black">
                               FAV
                             </span>
                           )}
@@ -305,41 +312,50 @@ export const PredictionsAndBetView: React.FC = () => {
                       </div>
                     </div>
 
-
                     <div className="text-right">
-                      <span className="text-xs font-mono font-bold text-[#d4af37]">
+                      <span className="text-sm font-mono font-black text-[#f5e6b3]">
                         {p.bettingOdds.toFixed(2)}x
                       </span>
-                      <span className="text-[9px] text-slate-500 block">Quota</span>
+                      <span className="text-[9px] text-slate-500 uppercase tracking-wider block">Quota</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 py-3 text-center border-b border-white/[0.04]">
                     <div>
-                      <span className="text-[9px] text-slate-500 block">Score Stima</span>
+                      <span className="text-[9px] text-slate-500 uppercase font-bold block">Score Stima</span>
                       <strong className="text-xs font-mono text-white">{p.predictedScore}</strong>
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-500 block">vs Par</span>
+                      <span className="text-[9px] text-slate-500 uppercase font-bold block">vs Par</span>
                       <strong className={`text-xs font-mono ${p.predictedDiffPar < 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                         {p.predictedDiffPar > 0 ? `+${p.predictedDiffPar}` : p.predictedDiffPar}
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-500 block">Prob. Vittoria</span>
+                      <span className="text-[9px] text-slate-500 uppercase font-bold block">Win Prob</span>
                       <strong className="text-xs font-mono text-emerald-400">{p.winProbabilityPercent}%</strong>
+                    </div>
+                  </div>
+
+                  {/* Win Probability Progress Bar */}
+                  <div className="pt-2.5 pb-1">
+                    <div className="w-full h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${isWinnerFav ? 'bg-gradient-to-r from-[#d4af37] to-emerald-400' : 'bg-emerald-500/70'}`}
+                        style={{ width: `${Math.min(100, Math.max(4, p.winProbabilityPercent * 2.2))}%` }}
+                      />
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-2 text-[10px] text-slate-400 space-y-1">
                   <div className="flex justify-between">
-                    <span>HIO Stimati: <strong className="text-white">{p.expectedHIOs}</strong></span>
-                    <span>Rischio Disastro: <strong className="text-white">{p.disasterRiskPercent}%</strong></span>
+                    <span>HIO Stimati: <strong className="text-white font-mono">{p.expectedHIOs}</strong></span>
+                    <span>Rischio Tilt: <strong className="text-rose-300 font-mono">{p.disasterRiskPercent}%</strong></span>
                   </div>
                   <div className="flex justify-between text-slate-500 font-mono">
-                    <span>Trend: {p.formTrend}</span>
-                    <span>Range: [{p.q10Score} - {p.q90Score}]</span>
+                    <span>Trend: <strong className="text-slate-300">{p.formTrend}</strong></span>
+                    <span>CI 80%: [{p.q10Score}–{p.q90Score}]</span>
                   </div>
                 </div>
               </div>

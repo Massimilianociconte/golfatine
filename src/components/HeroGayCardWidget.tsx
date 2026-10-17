@@ -11,6 +11,7 @@ import { sound } from '../utils/audio';
 import { triggerVictoryConfetti } from '../utils/confetti';
 import { getLocalUserProfile, subscribeToUserProfile, UserGaYCard } from '../utils/userStore';
 import { downloadGayCardPng } from '../utils/cardExporter';
+import { GLOBAL_SUMMARY } from '../data/golfatineData';
 
 interface HeroGayCardWidgetProps {
   onOpenModal: () => void;
@@ -140,13 +141,13 @@ export const HeroGayCardWidget: React.FC<HeroGayCardWidgetProps> = ({
   const rotX = mousePos.y;
 
   return (
-    <div className={`relative flex flex-col items-center ${isMobileSection ? 'w-full max-w-md mx-auto p-6 rounded-3xl bg-gradient-to-b from-[#101914] via-[#090e0b] to-[#050806] border border-[#d4af37]/30 shadow-2xl my-6' : 'w-full max-w-[390px]'}`}>
+    <div className={`relative flex flex-col items-center ${isMobileSection ? 'w-full max-w-md mx-auto p-6 rounded-3xl premium-card specular-top border border-[#d4af37]/30 shadow-2xl my-6' : 'w-full max-w-[390px]'}`}>
       
       {/* Mobile-Only Header Badge */}
       {isMobileSection && (
         <div className="w-full text-center mb-5 space-y-1.5">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full gold-badge text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
             <span>Meme GaY Card Ufficiale 3D</span>
           </div>
           <h2 className="text-xl font-heading font-black text-white">
@@ -297,7 +298,7 @@ export const HeroGayCardWidget: React.FC<HeroGayCardWidgetProps> = ({
                   MELAGOODO OFFICIAL
                 </span>
                 <span className="bg-black/70 px-2 py-0.5 rounded border border-white/15">
-                  82 EPISODI
+                  {GLOBAL_SUMMARY.totalVideos} EPISODI
                 </span>
               </div>
 

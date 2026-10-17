@@ -111,33 +111,49 @@ export const MatchModal: React.FC<MatchModalProps> = ({
       return 'bg-[#0b0f0d] text-slate-600';
     }
     if (score === 1) {
-      return 'bg-[#2b2410] text-[#fbbf24] border border-[#785d18] font-bold';
+      return 'bg-gradient-to-br from-[#3d3010] to-[#261e09] text-[#fde047] border border-[#d4af37]/60 font-black shadow-[0_0_10px_rgba(212,175,55,0.2)]';
     }
     if (score === 2) {
-      return 'bg-[#0f2419] text-[#4ade80] border border-[#1b4e33] font-medium';
+      return 'bg-[#0d281a] text-emerald-400 border border-emerald-500/35 font-semibold';
     }
     if (score === 3) {
-      return 'bg-[#111714] text-slate-300 border border-white/[0.06]';
+      return 'bg-[#101814] text-slate-300 border border-white/[0.07]';
     }
     if (score === 4) {
-      return 'bg-[#23170e] text-[#fb923c] border border-[#522b13]';
+      return 'bg-[#23170e] text-amber-400 border border-amber-500/30';
     }
     if (score >= 5 && score < 10) {
-      return 'bg-[#261314] text-[#f87171] border border-[#5a2123]';
+      return 'bg-[#261214] text-rose-400 border border-rose-500/30';
     }
-    return 'bg-[#3b1214] text-[#ef4444] border border-[#7f1d1d] font-bold';
+    return 'bg-gradient-to-br from-[#451215] to-[#2b0b0d] text-rose-300 border border-rose-500/60 font-black';
   };
 
   const getPositionBadge = (pos: number) => {
     switch (pos) {
       case 1:
-        return <span className="text-xs font-mono font-bold text-[#d4af37]">1°</span>;
+        return (
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-gradient-to-br from-[#f5e6b3] to-[#d4af37] text-slate-950 text-[10px] font-mono font-black shrink-0">
+            1°
+          </span>
+        );
       case 2:
-        return <span className="text-xs font-mono font-bold text-slate-300">2°</span>;
+        return (
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-slate-300/15 border border-slate-300/30 text-slate-200 text-[10px] font-mono font-bold shrink-0">
+            2°
+          </span>
+        );
       case 3:
-        return <span className="text-xs font-mono font-bold text-amber-600">3°</span>;
+        return (
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-amber-600/20 border border-amber-500/30 text-amber-400 text-[10px] font-mono font-bold shrink-0">
+            3°
+          </span>
+        );
       default:
-        return <span className="text-xs font-mono text-slate-500">{pos}°</span>;
+        return (
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-white/[0.04] text-slate-500 text-[10px] font-mono shrink-0">
+            {pos}°
+          </span>
+        );
     }
   };
 
@@ -151,7 +167,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label={`Dettaglio ${match.title}`}
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto backdrop-blur-md bg-black/80 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto backdrop-blur-xl bg-black/85 animate-in fade-in duration-200"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -159,50 +175,50 @@ export const MatchModal: React.FC<MatchModalProps> = ({
       
       {/* Modal Container */}
       <div
-        className="relative w-full max-w-5xl bg-[#090d0b] border border-white/[0.1] rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-5xl premium-card specular-top rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.9)] overflow-hidden my-auto max-h-[92vh] flex flex-col border border-white/[0.12]"
         onMouseDown={(e) => e.stopPropagation()}
       >
         
         {/* Sticky Header */}
-        <div className="p-4 sm:p-5 border-b border-white/[0.08] bg-[#0c120f]/95 backdrop-blur-md flex items-center justify-between gap-4 sticky top-0 z-20">
+        <div className="p-4 sm:p-5 border-b border-white/[0.08] bg-[#0a100d]/95 backdrop-blur-md flex items-center justify-between gap-4 sticky top-0 z-20">
           
           <div className="flex items-center gap-3 truncate">
-            <div className="px-2.5 py-1 rounded-lg bg-[#141d18] border border-white/[0.08] text-white font-mono font-bold text-xs shrink-0">
+            <div className="px-3 py-1.5 rounded-xl gold-badge font-mono font-black text-xs shrink-0">
               #{match.id}
             </div>
 
             <div className="truncate">
-              <h2 className="text-base sm:text-lg font-bold text-white font-heading truncate">
+              <h2 className="text-base sm:text-lg font-black text-white font-heading truncate">
                 {match.title}
               </h2>
-              <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-0.5 flex-wrap">
-                <span className="flex items-center gap-1 font-mono">
-                  <Calendar className="w-3 h-3 text-slate-500" />
+              <div className="flex items-center gap-2.5 text-[11px] text-slate-400 mt-0.5 flex-wrap">
+                <span className="flex items-center gap-1 font-mono text-slate-300">
+                  <Calendar className="w-3 h-3 text-[#d4af37]" />
                   {match.date}
                 </span>
-                <span>•</span>
+                <span className="text-white/20">•</span>
                 {isVideoOnly ? (
                   <span className="font-mono font-bold text-amber-300">
                     Video in archivio — scorecard in arrivo
                   </span>
                 ) : (
                   <>
-                    <span className="font-mono font-medium text-slate-300">
+                    <span className="font-mono font-bold text-[#f5e6b3]">
                       Par {match.totalPar}
                     </span>
-                    <span>•</span>
-                    <span>{match.players.length} giocatori</span>
+                    <span className="text-white/20">•</span>
+                    <span className="font-mono">{match.players.length} giocatori</span>
                   </>
                 )}
                 {match.channel && (
                   <>
-                    <span>•</span>
+                    <span className="text-white/20">•</span>
                     <button
                       onClick={() => {
                         if (onSelectChannel) onSelectChannel(match.channel);
                       }}
                       title={`Mostra tutti i video pubblicati da ${match.channel}`}
-                      className="flex items-center gap-1 font-semibold text-red-300 hover:text-red-200 hover:underline cursor-pointer"
+                      className="flex items-center gap-1 font-semibold text-rose-300 hover:text-rose-200 hover:underline cursor-pointer"
                     >
                       <Tv className="w-3 h-3" />
                       <span>{match.channel}</span>
@@ -220,9 +236,9 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sound.playClick()}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/30 text-xs font-semibold transition-colors"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600/20 hover:bg-red-600/35 text-red-300 border border-red-500/35 text-xs font-semibold transition-colors"
               >
-                <ExternalLink className="w-3 h-3" />
+                <ExternalLink className="w-3.5 h-3.5" />
                 <span>YouTube</span>
               </a>
             )}
@@ -232,7 +248,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                 if (onOpenShare) onOpenShare(match);
               }}
               aria-label="Condividi Story Wrapped"
-              className="p-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-[#d4af37] transition-colors border border-white/[0.06] cursor-pointer"
+              className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-[#d4af37] transition-colors border border-white/[0.08] cursor-pointer"
               title="Condividi Story Wrapped"
             >
               <Share2 className="w-4 h-4" />
@@ -244,7 +260,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                 onClose();
               }}
               aria-label="Chiudi dettaglio partita"
-              className="p-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors border border-white/[0.06] cursor-pointer"
+              className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.12] text-slate-300 hover:text-white transition-colors border border-white/[0.08] cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -253,9 +269,9 @@ export const MatchModal: React.FC<MatchModalProps> = ({
         </div>
 
         {/* Modal Navigation Bar & Watch Progress Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-2.5 border-b border-white/[0.06] bg-[#070b09] gap-2 text-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-3 border-b border-white/[0.06] bg-[#060a08] gap-2.5 text-xs">
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 bg-[#0b120e] p-1 rounded-xl border border-white/[0.07]">
             <button
               onClick={() => {
                 if (isVideoOnly) return;
@@ -264,9 +280,9 @@ export const MatchModal: React.FC<MatchModalProps> = ({
               }}
               disabled={isVideoOnly}
               title={isVideoOnly ? 'Scorecard in trascrizione' : undefined}
-              className={`px-3 py-1 rounded-md font-semibold transition-all ${isVideoOnly ? 'text-slate-600 cursor-not-allowed' : 'cursor-pointer'} ${
+              className={`px-3.5 py-1.5 rounded-lg font-bold transition-all ${isVideoOnly ? 'text-slate-600 cursor-not-allowed' : 'cursor-pointer'} ${
                 activeView === 'scorecard'
-                  ? 'bg-white text-slate-950 shadow-sm'
+                  ? 'bg-gradient-to-r from-[#f5e6b3] to-[#d4af37] text-slate-950 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -279,7 +295,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                   sound.playClick();
                   setActiveView('video');
                 }}
-                className={`px-3 py-1 rounded-md font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeView === 'video'
                     ? 'bg-red-600 text-white shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
@@ -298,9 +314,9 @@ export const MatchModal: React.FC<MatchModalProps> = ({
               }}
               disabled={isVideoOnly}
               title={isVideoOnly ? 'Grafico disponibile con la scorecard' : undefined}
-              className={`px-3 py-1 rounded-md font-semibold transition-all ${isVideoOnly ? 'text-slate-600 cursor-not-allowed' : 'cursor-pointer'} ${
+              className={`px-3.5 py-1.5 rounded-lg font-bold transition-all ${isVideoOnly ? 'text-slate-600 cursor-not-allowed' : 'cursor-pointer'} ${
                 activeView === 'graph'
-                  ? 'bg-white text-slate-950 shadow-sm'
+                  ? 'bg-gradient-to-r from-[#f5e6b3] to-[#d4af37] text-slate-950 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -309,7 +325,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
           </div>
 
           {/* Watch Time Progress Tracker Indicator */}
-          <div className="flex items-center gap-2.5 bg-[#0e1411] px-3 py-1 rounded-lg border border-white/[0.08] font-mono text-[11px]">
+          <div className="flex items-center gap-2.5 bg-[#0b120e] px-3.5 py-1.5 rounded-xl border border-white/[0.08] font-mono text-[11px]">
             {isCompleted ? (
               <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -341,7 +357,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
         )}
 
         {/* Modal Scrollable Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 flex-1">
           
           {/* VIEW: VIDEO EMBED WITH WATCH TRACKER */}
           {activeView === 'video' && match.youtubeId && (
@@ -358,7 +374,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 bg-[#0c120f] p-3 rounded-xl border border-white/[0.06] gap-2">
+              <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 bg-[#0b110d] p-3.5 rounded-xl border border-white/[0.07] gap-2">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-[#d4af37]" />
                   <span>
@@ -381,44 +397,67 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                 <p className="text-xs text-slate-400">Questo episodio è archiviato come video. La scorecard buca-per-buca verrà pubblicata appena disponibile — intanto guarda il video YouTube.</p>
               </div>
             ) : (
-            <div className="space-y-6 animate-in fade-in">
+            <div className="space-y-4 animate-in fade-in">
               
-              <div className="rounded-xl border border-white/[0.08] overflow-hidden bg-[#0a0e0c]">
+              {/* Legend Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-2 px-1 text-[10px] font-mono text-slate-400">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-sm bg-[#3d3010] border border-[#d4af37]" />
+                    <span className="text-[#f5e6b3] font-bold">1 Colpo (HIO)</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-sm bg-[#0d281a] border border-emerald-500/40" />
+                    <span className="text-emerald-400">2 Colpi</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-sm bg-[#101814] border border-white/15" />
+                    <span>3 Colpi</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-sm bg-[#451215] border border-rose-500/60" />
+                    <span className="text-rose-400">10+ (Disastro)</span>
+                  </span>
+                </div>
+                <span className="text-slate-500">Scorri orizzontalmente per tutte le 18 buche →</span>
+              </div>
+
+              <div className="rounded-2xl border border-white/[0.09] overflow-hidden bg-[#070b09] shadow-xl">
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs text-left border-collapse tabular-nums">
                     
                     <thead>
-                      <tr className="bg-[#0f1512] text-slate-400 font-semibold border-b border-white/[0.08]">
-                        <th className="py-2.5 px-3 sticky left-0 bg-[#0f1512] z-10 w-44">Giocatore</th>
-                        <th className="py-2.5 px-2 text-center w-12 text-[#d4af37]">Tot</th>
-                        <th className="py-2.5 px-2 text-center w-12">+/-</th>
+                      <tr className="bg-[#0d1510] text-slate-400 font-semibold border-b border-white/[0.08]">
+                        <th className="py-3 px-3.5 sticky left-0 bg-[#0d1510] z-10 w-44 border-r border-white/[0.06]">Giocatore</th>
+                        <th className="py-3 px-2.5 text-center w-12 text-[#d4af37] font-mono">Tot</th>
+                        <th className="py-3 px-2.5 text-center w-12 font-mono">+/-</th>
                         {holeIndices.map((h) => (
-                          <th key={h} className="py-2.5 px-1.5 text-center min-w-[28px] text-slate-500 font-mono text-[10px]">
+                          <th key={h} className="py-3 px-1.5 text-center min-w-[30px] text-slate-500 font-mono text-[10px]">
                             B{h}
                           </th>
                         ))}
-                        <th className="py-2.5 px-2 text-center text-amber-400">HIO</th>
-                        <th className="py-2.5 px-2 text-center text-rose-400">10+</th>
+                        <th className="py-3 px-2.5 text-center text-[#d4af37] font-mono">HIO</th>
+                        <th className="py-3 px-2.5 text-center text-rose-400 font-mono">10+</th>
                       </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-white/[0.04]">
+                    <tbody className="divide-y divide-white/[0.05]">
                       {match.players.map((p, pIdx) => {
                         const isWinner = p.position === 1;
 
                         return (
                           <tr 
                             key={pIdx}
-                            className={`hover:bg-white/[0.02] transition-colors ${
-                              isWinner ? 'bg-white/[0.02]' : ''
+                            className={`hover:bg-white/[0.025] transition-colors ${
+                              isWinner ? 'bg-[#d4af37]/[0.04]' : ''
                             }`}
                           >
-                            <td className={`py-2.5 px-3 sticky left-0 z-10 border-r border-white/[0.06] ${
-                              isWinner ? 'bg-[#0f1512] font-bold text-white' : 'bg-[#0a0e0c] text-slate-300'
+                            <td className={`py-2.5 px-3.5 sticky left-0 z-10 border-r border-white/[0.06] ${
+                              isWinner ? 'bg-[#101914] font-bold text-white' : 'bg-[#080d0a] text-slate-300'
                             }`}>
                               <div className="flex items-center gap-2">
                                 {getPositionBadge(p.position)}
-                                <div className="w-5 h-5 rounded-full overflow-hidden shrink-0 border border-white/10">
+                                <div className={`w-5 h-5 rounded-full overflow-hidden shrink-0 border ${isWinner ? 'border-[#d4af37]' : 'border-white/10'}`}>
                                   <img src={getPlayerAvatar(p.name)} alt={p.name} className="w-full h-full object-cover" />
                                 </div>
                                 <button
@@ -428,18 +467,18 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                                       onSelectPlayer(p.name);
                                     }
                                   }}
-                                  className="truncate hover:text-[#d4af37] text-left cursor-pointer"
+                                  className="truncate hover:text-[#f5e6b3] hover:underline text-left cursor-pointer"
                                 >
                                   {p.name}
                                 </button>
                               </div>
                             </td>
 
-                            <td className="py-2.5 px-2 text-center font-mono font-bold text-white bg-white/[0.01]">
+                            <td className="py-2.5 px-2.5 text-center font-mono font-black text-white bg-white/[0.015]">
                               {p.totalScore}
                             </td>
 
-                            <td className="py-2.5 px-2 text-center font-mono font-medium">
+                            <td className="py-2.5 px-2.5 text-center font-mono font-medium">
                               <span className={`text-[11px] font-bold ${
                                 p.diffPar < 0 ? 'text-emerald-400' : p.diffPar === 0 ? 'text-slate-400' : 'text-rose-400'
                               }`}>
@@ -450,19 +489,19 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                             {holeIndices.map((hIdx) => {
                               const holeScore = p.holes[hIdx - 1];
                               return (
-                                <td key={hIdx} className="py-1 px-1 text-center">
-                                  <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-[11px] font-mono ${getHoleCellStyle(holeScore)}`}>
+                                <td key={hIdx} className="py-1.5 px-1 text-center">
+                                  <span className={`inline-flex items-center justify-center w-6.5 h-6.5 rounded-md text-[11px] font-mono ${getHoleCellStyle(holeScore)}`}>
                                     {holeScore !== undefined && holeScore !== null ? holeScore : '-'}
                                   </span>
                                 </td>
                               );
                             })}
 
-                            <td className="py-2.5 px-2 text-center font-mono font-bold text-[#d4af37]">
+                            <td className="py-2.5 px-2.5 text-center font-mono font-bold text-[#d4af37]">
                               {p.hios > 0 ? p.hios : '-'}
                             </td>
 
-                            <td className="py-2.5 px-2 text-center font-mono font-bold text-rose-400">
+                            <td className="py-2.5 px-2.5 text-center font-mono font-bold text-rose-400">
                               {p.disasters > 0 ? p.disasters : '-'}
                             </td>
                           </tr>
@@ -487,18 +526,18 @@ export const MatchModal: React.FC<MatchModalProps> = ({
               </div>
             ) : (
             <div className="space-y-4 animate-in fade-in">
-              <div className="premium-card p-5 rounded-xl space-y-3">
-                <div className="flex items-center justify-between text-xs">
+              <div className="premium-card p-5 rounded-2xl space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <TrendingUp className="w-4 h-4 text-[#d4af37]" />
                     Progressione Cumulativa dei Colpi Buca per Buca
                   </span>
-                  <span className="text-slate-500 font-mono text-[11px]">
+                  <span className="text-slate-400 font-mono text-[11px]">
                     Più la linea è bassa, migliore è la prestazione
                   </span>
                 </div>
 
-                <div className="w-full h-64 relative bg-[#070a08] rounded-lg p-2 border border-white/[0.06]">
+                <div className="w-full h-64 relative bg-[#060907] rounded-xl p-3 border border-white/[0.07]">
                   <svg className="w-full h-full overflow-visible" viewBox={`0 0 ${maxHoles * 30} 180`}>
                     {Array.from({ length: 5 }, (_, i) => (
                       <line
@@ -507,8 +546,8 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                         y1={i * 40}
                         x2={maxHoles * 30}
                         y2={i * 40}
-                        stroke="rgba(255,255,255,0.05)"
-                        strokeDasharray="2 2"
+                        stroke="rgba(255,255,255,0.06)"
+                        strokeDasharray="3 3"
                       />
                     ))}
 
@@ -529,8 +568,10 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                           <polyline
                             fill="none"
                             stroke={playerColor}
-                            strokeWidth={p.position === 1 ? '2.5' : '1.5'}
-                            strokeOpacity={p.position === 1 ? '1' : '0.7'}
+                            strokeWidth={p.position === 1 ? '3' : '1.75'}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeOpacity={p.position === 1 ? '1' : '0.75'}
                             points={points}
                           />
                         </g>
@@ -539,14 +580,14 @@ export const MatchModal: React.FC<MatchModalProps> = ({
                   </svg>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 pt-2 text-xs">
+                <div className="flex flex-wrap items-center gap-3 pt-1 text-xs">
                   {match.players.map((p, pIdx) => {
                     const colors = ['#d4af37', '#60a5fa', '#34d399', '#f87171', '#c084fc', '#fb923c', '#e879f9'];
                     return (
-                      <div key={pIdx} className="flex items-center gap-1.5 text-xs">
+                      <div key={pIdx} className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg bg-[#070b09] border border-white/[0.06]">
                         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: colors[pIdx % colors.length] }} />
-                        <span className="text-slate-300 font-medium">{p.name}</span>
-                        <span className="font-mono text-slate-500 text-[10px]">({p.totalScore})</span>
+                        <span className="text-slate-200 font-semibold">{p.name}</span>
+                        <span className="font-mono text-[#d4af37] text-[10px]">({p.totalScore})</span>
                       </div>
                     );
                   })}
@@ -558,12 +599,12 @@ export const MatchModal: React.FC<MatchModalProps> = ({
           )}
 
           {/* Melagoodo Commentary & Cult Moments */}
-          <div className="premium-card p-4 rounded-xl border-l-2 border-[#d4af37] space-y-2">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#d4af37]">
+          <div className="premium-card p-4 sm:p-5 rounded-2xl border-l-2 border-[#d4af37] space-y-2">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#d4af37]">
               <Info className="w-3.5 h-3.5" />
               <span>Cronaca & Momenti Cult</span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
+            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed italic">
               "{match.sdrogoCommentary}"
             </p>
           </div>
@@ -575,3 +616,4 @@ export const MatchModal: React.FC<MatchModalProps> = ({
     </div>
   );
 };
+

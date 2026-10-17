@@ -138,43 +138,54 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isSecondaryActive = secondaryNavItems.some(i => i.id === activeTab);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070b09]/95 backdrop-blur-xl max-w-full overflow-x-clip pt-[env(safe-area-inset-top,0px)]">
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#050806]/90 backdrop-blur-xl max-w-full overflow-x-clip pt-[env(safe-area-inset-top,0px)] shadow-[0_8px_30px_rgba(0,0,0,0.55)]">
       
-      {/* Top Editorial Ticker Bar - Guaranteed Responsive & Contained */}
-      <div className="border-b border-white/[0.04] bg-[#040705] w-full overflow-hidden">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1 text-[11px] text-slate-400 flex items-center justify-between min-w-0">
-          <div className="flex items-center gap-2 sm:gap-3 font-medium min-w-0 truncate">
-            <div className="flex items-center gap-1.5 text-slate-300 shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse shrink-0" />
-              <span className="tracking-wider uppercase font-semibold text-[9px] sm:text-[10px] text-slate-300 truncate">
-                MELAGOODO • GOLF WITH YOUR FRIENDS
+      {/* Top Broadcast Telemetry Ticker Bar */}
+      <div className="border-b border-white/[0.05] bg-gradient-to-r from-[#040705] via-[#070d0a] to-[#040705] w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 text-[11px] text-slate-400 flex items-center justify-between min-w-0">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 font-medium min-w-0 truncate">
+            <div className="flex items-center gap-1.5 text-slate-200 shrink-0 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse shrink-0" />
+              <span className="tracking-widest uppercase font-mono font-bold text-[9px] sm:text-[10px] text-slate-200 truncate">
+                MELAGOODO • TELEMETRIA UFFICIALE
               </span>
             </div>
-            <span className="text-white/20 hidden sm:inline">|</span>
-            <span className="hidden sm:inline text-slate-400 font-mono shrink-0">
-              <strong className="text-slate-200">{GLOBAL_SUMMARY.totalVideos}</strong> Episodi
+            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400 font-mono shrink-0">
+              <strong className="text-white font-bold">{GLOBAL_SUMMARY.totalVideos}</strong>
+              <span className="text-[10px] uppercase tracking-wider text-slate-500">Episodi</span>
             </span>
-            <span className="text-white/20 hidden md:inline">|</span>
-            <span className="hidden md:inline text-slate-400 font-mono shrink-0">
-              <strong className="text-slate-200">{GLOBAL_SUMMARY.totalMatches}</strong> Scorecard
+            <span className="text-white/10 hidden md:inline">•</span>
+            <span className="hidden md:inline-flex items-center gap-1 text-slate-400 font-mono shrink-0">
+              <strong className="text-white font-bold">{GLOBAL_SUMMARY.totalMatches}</strong>
+              <span className="text-[10px] uppercase tracking-wider text-slate-500">Scorecard</span>
             </span>
-            <span className="text-white/20 hidden md:inline">|</span>
-            <span className="hidden md:inline text-slate-400 font-mono shrink-0">
-              <strong className="text-[#d4af37]">{GLOBAL_SUMMARY.totalHIOs}</strong> Hole-in-One
+            <span className="text-white/10 hidden md:inline">•</span>
+            <span className="hidden md:inline-flex items-center gap-1 text-slate-400 font-mono shrink-0">
+              <strong className="text-[#d4af37] font-bold">{GLOBAL_SUMMARY.totalHIOs}</strong>
+              <span className="text-[10px] uppercase tracking-wider text-[#d4af37]/80">Hole-in-One</span>
+            </span>
+            <span className="text-white/10 hidden lg:inline">•</span>
+            <span className="hidden lg:inline-flex items-center gap-1 text-slate-400 font-mono shrink-0">
+              <strong className="text-emerald-400 font-bold">{GLOBAL_SUMMARY.totalHolesPlayed.toLocaleString('it-IT')}</strong>
+              <span className="text-[10px] uppercase tracking-wider text-slate-500">Buche Analizzate</span>
             </span>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2 font-mono text-[9px] sm:text-[10px]">
-            <span className="text-[#d4af37] flex items-center gap-1">
-              <Brain className="w-3 h-3 shrink-0" />
-              <span className="hidden xs:inline">Neural Forecast</span> AI
-            </span>
-            <span className="text-white/20 hidden sm:inline">|</span>
+            <button
+              onClick={() => handleTabClick('forecast')}
+              className="text-[#f5e6b3] hover:text-white flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/25 transition-colors cursor-pointer"
+            >
+              <Brain className="w-3 h-3 text-[#d4af37] shrink-0" />
+              <span className="hidden xs:inline">TimesFM-3.0</span>
+              <span className="text-[#d4af37] font-bold">LIVE</span>
+            </button>
+            <span className="text-white/15 hidden sm:inline">|</span>
             <a
               href="https://www.webnovis.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-white transition-colors hidden sm:inline"
+              className="text-slate-400 hover:text-[#d4af37] transition-colors hidden sm:inline font-semibold"
             >
               by WebNovis
             </a>
@@ -184,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Main Navbar Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-3 min-w-0">
+        <div className="flex items-center justify-between h-15 sm:h-17 gap-2 sm:gap-3 min-w-0">
           
           {/* Brand Logo - Responsive */}
           <div 
@@ -193,27 +204,33 @@ export const Navbar: React.FC<NavbarProps> = ({
               setActiveTab('golfatine');
               smoothScrollTo(0, { duration: 650 });
             }}
-            className="flex items-center gap-2.5 cursor-pointer group select-none min-w-0 shrink"
+            className="flex items-center gap-3 cursor-pointer group select-none min-w-0 shrink"
           >
-            <MelagoodoLogo className="w-8 h-8 sm:w-9 sm:h-9 shrink-0" size={34} />
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-[#d4af37]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <MelagoodoLogo className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 relative z-10" size={38} />
+            </div>
 
             <div className="min-w-0 truncate">
               <div className="flex items-center gap-1.5 min-w-0">
-                <span className="text-xs sm:text-sm md:text-base font-black tracking-tight font-heading text-white group-hover:text-[#f3e8c8] transition-colors truncate">
+                <span className="text-xs sm:text-sm md:text-base font-black tracking-tight font-heading text-white group-hover:text-[#f5e6b3] transition-colors truncate">
                   LO SDROGO GOLFOMETRO
                 </span>
-                <span className="hidden sm:inline-block px-1.5 py-0.2 rounded text-[8px] font-bold uppercase tracking-wider bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 shrink-0">
+                <span className="hidden sm:inline-block px-1.5 py-0.5 rounded-md text-[8px] font-mono font-bold uppercase tracking-widest gold-badge shrink-0">
                   Melagoodo
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 font-normal leading-none hidden sm:block truncate">
-                Archivio Storico & Community Hub
+              <p className="text-[10px] text-slate-400 font-medium leading-none hidden sm:block truncate mt-0.5">
+                Archivio Analitico & Esports Telemetry Hub
               </p>
             </div>
           </div>
 
-          {/* Desktop Nav Links (Responsive Layout: 5 primary + Dropdown on XL, Full 8 on 2XL) */}
-          <nav className="hidden xl:flex items-center gap-1 bg-[#0a0f0c] p-1 rounded-xl border border-white/[0.06] shrink-0">
+          {/* Desktop Nav Links (Responsive Layout: 6 primary + Dropdown on XL, Full 9 on 2XL) */}
+          <nav
+            aria-label="Navigazione principale"
+            className="hidden xl:flex items-center gap-1 bg-[#080d0a]/95 p-1.5 rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] shrink-0"
+          >
             {/* Primary Nav Items */}
             {primaryNavItems.map((item) => {
               const Icon = item.icon;
@@ -223,16 +240,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => handleTabClick(item.id)}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                     isActive
-                      ? 'bg-[#15201a] text-white shadow-sm border border-white/[0.12]'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]'
+                      ? 'bg-gradient-to-b from-[#1a2820] to-[#111a15] text-white shadow-[0_2px_12px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(212,175,55,0.3)] border border-[#d4af37]/35'
+                      : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.035] border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#d4af37]' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-[#d4af37]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="hidden 2xl:inline-block px-1 py-0.2 rounded text-[8px] font-mono font-bold uppercase bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/25">
+                    <span className={`hidden 2xl:inline-block px-1.5 py-0.2 rounded text-[8px] font-mono font-bold uppercase ${
+                      item.id === 'amongus'
+                        ? 'bg-rose-500/20 text-rose-300 border border-rose-500/35'
+                        : 'bg-[#d4af37]/15 text-[#f5e6b3] border border-[#d4af37]/30'
+                    }`}>
                       {item.badge}
                     </span>
                   )}
@@ -241,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
 
             {/* Extra items visible on 2XL screens */}
-            <div className="hidden 2xl:flex items-center gap-1 border-l border-white/[0.06] pl-1">
+            <div className="hidden 2xl:flex items-center gap-1 border-l border-white/[0.07] pl-1 ml-0.5">
               {secondaryNavItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -249,10 +270,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <button
                     key={item.id}
                     onClick={() => handleTabClick(item.id)}
-                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                       isActive
-                        ? 'bg-[#15201a] text-white shadow-sm border border-white/[0.12]'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]'
+                        ? 'bg-gradient-to-b from-[#1a2820] to-[#111a15] text-white shadow-[0_2px_12px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(212,175,55,0.3)] border border-[#d4af37]/35'
+                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.035] border border-transparent'
                     }`}
                   >
                     <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#d4af37]' : 'text-slate-400'}`} />
@@ -269,10 +290,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   sound.playClick();
                   setMoreDropdownOpen(!moreDropdownOpen);
                 }}
-                className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isSecondaryActive
-                    ? 'bg-[#15201a] text-[#d4af37] border border-[#d4af37]/30 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]'
+                    ? 'bg-gradient-to-b from-[#1a2820] to-[#111a15] text-[#f5e6b3] border border-[#d4af37]/35 shadow-sm'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.035] border border-transparent'
                 }`}
               >
                 <span>{isSecondaryActive ? secondaryNavItems.find(i => i.id === activeTab)?.label : 'Altro'}</span>
@@ -280,7 +301,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               {moreDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-[#0d1410] border border-white/[0.12] rounded-xl shadow-2xl py-1 z-50 animate-in fade-in zoom-in-95">
+                <div className="absolute right-0 mt-2.5 w-44 glass-panel rounded-2xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95">
                   {secondaryNavItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -288,7 +309,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <button
                         key={item.id}
                         onClick={() => handleTabClick(item.id)}
-                        className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium transition-colors cursor-pointer text-left ${
+                        className={`w-full flex items-center justify-between px-3.5 py-2 text-xs font-medium transition-colors cursor-pointer text-left ${
                           isActive
                             ? 'bg-[#16221b] text-white font-bold'
                             : 'text-slate-300 hover:bg-white/[0.05] hover:text-white'
@@ -314,16 +335,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right Action Tools - Guaranteed Mobile-First & Contained */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             
-            {/* GaY Card 3D Trigger (Hidden on small mobile to give full room to Profile & Menu) */}
+            {/* GaY Card 3D Trigger */}
             <button
               onClick={() => {
                 sound.playClick();
                 onOpenGayCard();
               }}
-              className="hidden sm:flex px-3 py-2 rounded-xl bg-gradient-to-r from-[#d4af37]/15 to-amber-500/15 hover:from-[#d4af37]/25 hover:to-amber-500/25 border border-[#d4af37]/30 text-[#d4af37] text-xs font-bold items-center gap-1.5 transition-all cursor-pointer shrink-0 min-h-[44px]"
+              className="hidden sm:flex px-3.5 py-2 rounded-xl gold-badge hover:brightness-110 text-xs font-bold items-center gap-1.5 transition-all cursor-pointer shrink-0 min-h-[42px] shadow-sm active:scale-98"
               title="Apri GaY Card 3D Meme"
             >
-              <CreditCard className="w-3.5 h-3.5" />
+              <CreditCard className="w-3.5 h-3.5 text-[#d4af37]" />
               <span>GaY Card 3D</span>
             </button>
 
@@ -333,7 +354,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sound.playClick();
                 onOpenProfile();
               }}
-              className="px-2.5 sm:px-3 py-2 rounded-xl bg-[#101814] hover:bg-[#16221b] border border-white/[0.08] text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 min-h-[44px]"
+              className="px-2.5 sm:px-3.5 py-2 rounded-xl bg-[#0d1511] hover:bg-[#14201a] border border-white/[0.09] hover:border-white/[0.16] text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 min-h-[42px] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
               title={`Profilo Utente Community • Stato: ${
                 syncInfo.status === 'synced' 
                   ? 'Cloud Verificato (Melagoodo Cloud)' 
@@ -349,11 +370,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <User className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-              <span className="font-mono text-[11px] text-white whitespace-nowrap">{userPoints.toLocaleString()} PTS</span>
+              <span className="font-mono text-[11px] font-bold text-white whitespace-nowrap">{userPoints.toLocaleString()} PTS</span>
               <span 
                 className={`w-1.5 h-1.5 rounded-full shrink-0 ${
                   syncInfo.status === 'synced' 
-                    ? 'bg-emerald-400' 
+                    ? 'bg-emerald-400 shadow-[0_0_6px_#34d399]' 
                     : syncInfo.status === 'local' 
                     ? 'bg-sky-400' 
                     : syncInfo.status === 'syncing' 
@@ -378,14 +399,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </button>
 
-            {/* Sound Toggle (Visible on sm+ screens, available in mobile drawer) */}
+            {/* Sound Toggle */}
             <button
               onClick={toggleSound}
               title={soundEnabled ? "Effetti sonori attivi" : "Effetti sonori mutati"}
-              className={`hidden sm:flex p-2.5 rounded-xl text-xs font-medium items-center gap-1 transition-all border cursor-pointer shrink-0 min-h-[44px] min-w-[44px] justify-center ${
+              className={`hidden sm:flex p-2.5 rounded-xl text-xs font-medium items-center gap-1 transition-all border cursor-pointer shrink-0 min-h-[42px] min-w-[42px] justify-center ${
                 soundEnabled 
-                  ? 'bg-[#121a15] text-slate-200 border-white/[0.1] hover:border-white/[0.2]'
-                  : 'bg-transparent text-slate-500 border-transparent hover:text-slate-300'
+                  ? 'bg-[#0d1511] text-slate-200 border-white/[0.09] hover:border-white/[0.2] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
+                  : 'bg-transparent text-slate-500 border-white/[0.04] hover:text-slate-300'
               }`}
             >
               {soundEnabled ? (
@@ -395,13 +416,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Mobile / Tablet Menu Trigger (ALWAYS prominent and inside viewport) */}
+            {/* Mobile / Tablet Menu Trigger */}
             <button
               onClick={() => {
                 sound.playClick();
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className="p-2.5 xl:hidden rounded-xl bg-[#101814] hover:bg-[#16221b] border border-white/[0.12] text-slate-200 hover:text-white transition-colors cursor-pointer shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center shadow-sm active:scale-95"
+              className="p-2.5 xl:hidden rounded-xl bg-[#0d1511] hover:bg-[#14201a] border border-white/[0.12] text-slate-200 hover:text-white transition-colors cursor-pointer shrink-0 min-h-[42px] min-w-[42px] flex items-center justify-center shadow-sm active:scale-95"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 text-[#d4af37]" /> : <Menu className="w-5 h-5" />}
@@ -412,16 +433,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer Menu - Rich, Responsive & Complete */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-white/[0.08] bg-[#070b09] px-4 py-4 space-y-3 animate-in fade-in duration-150 shadow-2xl max-w-full pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
+        <div className="xl:hidden border-t border-white/[0.08] bg-[#060a08]/98 backdrop-blur-2xl px-4 py-4 space-y-3 animate-in fade-in duration-150 shadow-2xl max-w-full pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
           
           {/* User Account / Cloud Status on Mobile */}
-          <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0c130f] border border-white/[0.06] text-xs">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-[#0b120e] border border-white/[0.07] text-xs">
             <div className="flex items-center gap-2">
               <span className={`w-2 h-2 rounded-full shrink-0 ${
                 syncInfo.status === 'synced'
-                  ? 'bg-emerald-400'
+                  ? 'bg-emerald-400 shadow-[0_0_6px_#34d399]'
                   : syncInfo.status === 'local'
                   ? 'bg-sky-400'
                   : syncInfo.status === 'syncing'
@@ -464,9 +485,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setMobileMenuOpen(false);
                 onOpenGayCard();
               }}
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#141d18] border border-[#d4af37]/30 text-[#d4af37] font-bold text-xs cursor-pointer active:scale-98 transition-all min-h-[44px]"
+              className="flex items-center justify-center gap-2 p-3 rounded-xl gold-badge font-bold text-xs cursor-pointer active:scale-98 transition-all min-h-[44px]"
             >
-              <CreditCard className="w-4 h-4 shrink-0" />
+              <CreditCard className="w-4 h-4 text-[#d4af37] shrink-0" />
               <span>GaY Card 3D</span>
             </button>
 
@@ -474,7 +495,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => {
                 toggleSound();
               }}
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#101814] border border-white/[0.08] text-slate-200 font-semibold text-xs cursor-pointer active:scale-98 transition-all min-h-[44px]"
+              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#0d1511] border border-white/[0.08] text-slate-200 font-semibold text-xs cursor-pointer active:scale-98 transition-all min-h-[44px]"
             >
               {soundEnabled ? (
                 <>
@@ -491,7 +512,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Navigation Links Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {allNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -501,8 +522,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handleTabClick(item.id)}
                   className={`flex items-center justify-between gap-2 p-3 rounded-xl text-xs font-semibold border transition-all cursor-pointer min-h-[44px] ${
                     isActive
-                      ? 'bg-[#15201a] text-white border-white/[0.15] shadow-sm'
-                      : 'bg-[#0a0f0c] text-slate-300 border-white/[0.05] hover:bg-[#121a15]'
+                      ? 'bg-gradient-to-b from-[#1a2820] to-[#111a15] text-white border-[#d4af37]/40 shadow-sm'
+                      : 'bg-[#090e0b] text-slate-300 border-white/[0.06] hover:bg-[#111a15]'
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
