@@ -620,6 +620,17 @@
       "status": "not_golfatina",
       "reason": "nessuna classifica nel video",
       "checked_at": "2026-11-13T15:07:56"
+    },
+    "kOCpymsfUac": {
+      "title": "GOLFATINA PRIMA DI GTA ANDATA MALE...",
+      "channel": "JTaz Extra",
+      "published": "2026-11-13T16:00:30+01:00",
+      "date": "2026-11-13",
+      "url": "https://youtu.be/kOCpymsfUac",
+      "kind": "strong",
+      "status": "short",
+      "reason": "[grab] ERRORE: kOCpymsfUac: durata 31s (Short?)",
+      "checked_at": "2026-11-13T16:07:55"
     }
   }
 }
