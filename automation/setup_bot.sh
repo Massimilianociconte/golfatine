@@ -10,7 +10,9 @@
 #     sviluppo non viene mai toccata dal bot);
 #   - collega il venv MLX di questa copia (.venv-mlx) e installa node_modules;
 #   - scrive ~/.golfatine-bot/run.sh e l'agente launchd com.golfatine.bot
-#     (ogni GOLFATINE_BOT_INTERVAL secondi, default 3600, e al login).
+#     (ogni ora al minuto GOLFATINE_BOT_MINUTE, default 7, e al login).
+#     Orario a calendario e non a intervallo: se il Mac era in stop o chiuso
+#     all'ora prevista, launchd fa partire il giro appena si risveglia.
 # Log: ~/Library/Logs/golfatine-bot.log
 set -euo pipefail
 
@@ -20,7 +22,7 @@ BOT_REPO="$BOT_HOME/repo"
 LABEL="com.golfatine.bot"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG="$HOME/Library/Logs/golfatine-bot.log"
-INTERVAL="${GOLFATINE_BOT_INTERVAL:-3600}"
+MINUTE="${GOLFATINE_BOT_MINUTE:-7}"
 REPO_URL="https://github.com/Massimilianociconte/golfatine.git"
 UID_NUM="$(id -u)"
 
@@ -78,7 +80,7 @@ cat > "$PLIST" <<EOF
   <key>Label</key><string>$LABEL</string>
   <key>ProgramArguments</key>
   <array><string>/bin/bash</string><string>$BOT_HOME/run.sh</string></array>
-  <key>StartInterval</key><integer>$INTERVAL</integer>
+  <key>StartCalendarInterval</key><dict><key>Minute</key><integer>$MINUTE</integer></dict>
   <key>RunAtLoad</key><true/>
   <key>Nice</key><integer>5</integer>
   <key>StandardOutPath</key><string>$LOG</string>
@@ -93,5 +95,5 @@ if [ "${1:-}" = "--no-load" ]; then
 fi
 launchctl bootout "gui/$UID_NUM/$LABEL" 2>/dev/null || true
 launchctl bootstrap "gui/$UID_NUM" "$PLIST"
-echo "bot attivo: giro ogni $INTERVAL s (+ al login). Log: $LOG"
+echo "bot attivo: giro ogni ora al minuto $MINUTE (+ al login e al risveglio se saltato). Log: $LOG"
 echo "giro manuale: bash $BOT_HOME/run.sh   |   stato: launchctl print gui/$UID_NUM/$LABEL | head"

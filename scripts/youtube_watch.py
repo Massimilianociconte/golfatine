@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """Monitor dei 7 canali via feed RSS pubblici di YouTube (niente API key).
 
-Se il feed RSS di un canale non risponde (YouTube a volte li manda in 404
-per ore), ripiega sulla scheda "Video" del canale letta con yt-dlp
-(--flat-playlist): titoli originali in italiano + data approssimativa,
-poi data esatta con `yt-dlp -J` solo per i candidati nuovi.
+Ogni giro legge, per ogni canale, sia il feed RSS sia la scheda "Video"
+(yt-dlp --flat-playlist, ultimi TAB_DEPTH video lunghi):
+  - il feed RSS ha solo gli ultimi 15 caricamenti, Shorts compresi: se il
+    Mac resta spento a lungo una golfatina puo' uscirne, coperta dagli
+    Shorts; la scheda Video non ha Shorts e va piu' indietro;
+  - YouTube a volte manda i feed RSS in 404 per ore: la scheda copre.
+Per i video visti solo nella scheda (titoli originali con lang=it, data
+approssimativa) la data esatta si prende con `yt-dlp -J`, solo per i
+candidati nuovi.
 
 Elenca i video candidati "golfatina" non ancora integrati in
 src/data/golfatineData.ts e non gia' decisi nel ledger
@@ -50,6 +55,7 @@ CHANNEL_IDS = {
 }
 FEED = "https://www.youtube.com/feeds/videos.xml?channel_id={}"
 TAB = "https://www.youtube.com/channel/{}/videos"
+TAB_DEPTH = 30  # video lunghi letti dalla scheda Video di ogni canale
 YTDLP = os.environ.get("YTDLP") or shutil.which("yt-dlp") or "/opt/homebrew/bin/yt-dlp"
 NS = {"a": "http://www.w3.org/2005/Atom", "yt": "http://www.youtube.com/xml/schemas/2015",
       "media": "http://search.yahoo.com/mrss/"}
@@ -117,8 +123,8 @@ def _entry(channel, vid, title, ts, approx):
             "url": f"https://youtu.be/{vid}", "approx_date": approx}
 
 
-def fetch_tab(channel, cid, n=15):
-    """Fallback senza RSS: scheda Video del canale (niente Shorts/live).
+def fetch_tab(channel, cid, n=TAB_DEPTH):
+    """Scheda Video del canale (solo video lunghi: niente Shorts/live).
 
     Due letture: con lang=it i titoli sono quelli originali ma senza data;
     senza lang c'e' la data approssimativa ("3 giorni fa") ma i titoli
@@ -166,18 +172,28 @@ def candidates(ledger=None, ts_path=TS_PATH, precise=True):
     have = integrated_ids(ts_path) | KNOWN_DUPLICATE_YT
     decided = {k for k, v in ledger.get("videos", {}).items()
                if v.get("status") not in ("retry",)}
-    out, errors, fallback = [], [], []
+    out, errors, rss_down, tab_down, tab_only = [], [], [], [], []
     for ch, cid in CHANNEL_IDS.items():
+        rss = tab = None
+        errs = []
         try:
-            entries = fetch_feed(ch, cid)
-        except Exception as e:  # RSS giu': scheda Video del canale
-            try:
-                entries = fetch_tab(ch, cid)
-                fallback.append(ch)
-            except Exception as e2:  # un canale giu' non blocca gli altri
-                errors.append(f"{ch}: RSS {e}; scheda video {e2}")
-                continue
-        for e in entries:
+            rss = fetch_feed(ch, cid)
+        except Exception as e:
+            errs.append(f"RSS {e}")
+        try:
+            tab = fetch_tab(ch, cid)
+        except Exception as e:
+            errs.append(f"scheda video {e}")
+        if rss is None and tab is None:  # un canale giu' non blocca gli altri
+            errors.append(f"{ch}: " + "; ".join(errs))
+            continue
+        if rss is None:
+            rss_down.append(ch)
+        if tab is None:
+            tab_down.append(f"{ch} ({errs[-1]})")
+        merged = {e["youtube_id"]: e for e in tab or []}
+        merged.update({e["youtube_id"]: e for e in rss or []})  # RSS: data esatta
+        for e in merged.values():
             kind = classify(e["title"])
             if not kind:
                 continue
@@ -187,8 +203,14 @@ def candidates(ledger=None, ts_path=TS_PATH, precise=True):
                 continue
             e["kind"] = kind
             out.append(e)
-    if fallback:
-        log(f"AVVISO feed RSS giu', uso la scheda video per: {', '.join(fallback)}")
+            if rss is not None and e.get("approx_date"):
+                tab_only.append(e["youtube_id"])
+    if rss_down:
+        log(f"AVVISO feed RSS giu' per: {', '.join(rss_down)} (uso la scheda video)")
+    if tab_down:
+        log(f"AVVISO scheda video non letta: {'; '.join(tab_down)}")
+    if tab_only:
+        log(f"fuori dal feed RSS, trovati nella scheda video: {', '.join(tab_only)}")
     for err in errors:
         log(f"AVVISO canale non letto: {err}")
     if len(errors) == len(CHANNEL_IDS):

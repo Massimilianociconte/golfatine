@@ -19,7 +19,9 @@ bash automation/setup_bot.sh
 
 Crea un clone dedicato in `~/.golfatine-bot/repo` (la copia di sviluppo non
 viene mai toccata), collega `.venv-mlx`, installa `node_modules` e attiva
-l'agente `com.golfatine.bot` (ogni ora + al login).
+l'agente `com.golfatine.bot` (ogni ora al minuto 7 + al login). L'orario è a
+calendario: se il Mac era chiuso o in stop, il giro saltato parte appena si
+risveglia, e recupera tutto quello che è uscito nel frattempo.
 
 - Log: `~/Library/Logs/golfatine-bot.log`
 - Giro a mano: `bash ~/.golfatine-bot/run.sh` (accetta i flag sotto)
@@ -31,9 +33,12 @@ Dopo un giro del bot, nella copia di sviluppo fai `git pull` prima di lavorare.
 ## Cosa fa ogni giro
 
 1. `git pull` del clone bot.
-2. Feed RSS dei 7 canali (`scripts/youtube_watch.py`, nessuna API key);
-   se YouTube manda i feed in 404 ripiega sulla scheda "Video" del canale
-   (yt-dlp, titoli originali + data esatta per i candidati nuovi).
+2. Per ogni canale (`scripts/youtube_watch.py`, nessuna API key): feed RSS
+   **e** scheda "Video" (yt-dlp, ultimi 30 video lunghi). Il feed ha solo
+   gli ultimi 15 caricamenti, Shorts compresi: dopo giorni a Mac chiuso una
+   golfatina può uscirne coperta dagli Shorts; la scheda Video non ha Shorts
+   e va più indietro. Se i feed RSS sono in 404 basta la scheda. Per i video
+   visti solo nella scheda: titolo originale + data esatta (`yt-dlp -J`).
    Candidato **forte** = titolo con "golf…"; **debole** = titolo con almeno 2
    nomi del roster (per titoli senza "golf": se non c'è classifica viene
    scartato in silenzio). Shorts scartati per durata.

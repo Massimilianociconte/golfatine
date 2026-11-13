@@ -4,8 +4,8 @@
 
 Le nuove golfatine NON passano più da DOCX/PDF: il bot sul Mac
 (`scripts/auto_youtube_golfatina.py`, agente launchd `com.golfatine.bot`,
-clone dedicato `~/.golfatine-bot/repo`) controlla ogni ora i feed RSS dei 7
-canali, trova la classifica finale nel video, la legge col VLM con consenso
+clone dedicato `~/.golfatine-bot/repo`) controlla ogni ora (e al risveglio
+del Mac) feed RSS + scheda Video dei 7 canali, trova la classifica finale nel video, la legge col VLM con consenso
 su 2 frame + checksum, integra, rigenera il forecast, testa e fa push.
 Dettagli, installazione e gestione dei casi dubbi: `automation/README.md`.
 
