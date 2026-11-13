@@ -30,11 +30,9 @@
       "date": "2026-10-02",
       "url": "https://youtu.be/_zQDswRqjx4",
       "kind": "strong",
-      "status": "needs_review",
-      "reason": "golfatina senza classifica leggibile: [grab] ERRORE: _zQDswRqjx4: classifica non trovata negli ultimi minuti",
-      "checked_at": "2026-11-13T03:11:52",
-      "frame": null,
-      "manual": "automation/manual/_zQDswRqjx4.json",
+      "status": "skipped",
+      "reason": "scartato a mano (manual action=skip)",
+      "checked_at": "2026-11-13T08:53:12",
       "issue": "https://github.com/Massimilianociconte/golfatine/issues/6"
     },
     "tua4jbG-ydI": {
@@ -276,11 +274,9 @@
       "date": "2026-10-27",
       "url": "https://youtu.be/wwTWBbHscO8",
       "kind": "strong",
-      "status": "needs_review",
-      "reason": "golfatina senza classifica leggibile: [grab] ERRORE: wwTWBbHscO8: classifica non trovata negli ultimi minuti",
-      "checked_at": "2026-11-13T01:18:34",
-      "frame": null,
-      "manual": "automation/manual/wwTWBbHscO8.json",
+      "status": "skipped",
+      "reason": "scartato a mano (manual action=skip)",
+      "checked_at": "2026-11-13T08:53:12",
       "issue": "https://github.com/Massimilianociconte/golfatine/issues/2"
     },
     "JAZaN30X7bg": {
@@ -334,12 +330,12 @@
       "date": "2026-10-30",
       "url": "https://youtu.be/m1GO9Tr1WmE",
       "kind": "strong",
-      "status": "needs_review",
-      "reason": "frame crop_1.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_0.json (correggere le celle e riprovare con --scoreboard)); frame crop_5.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_1.json (correggere le celle e riprovare con --scoreboard)); frame crop_2.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_2.json (correggere le celle e riprovare con --scoreboard)); frame crop_3.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_3.json (correggere le celle e riprovare con --scoreboard)); frame crop_4.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_4.json (correggere le celle e riprovare con --scoreboard)); nessuna lettura valida",
-      "checked_at": "2026-11-13T01:18:34",
-      "frame": "automation/review/m1GO9Tr1WmE.jpg",
-      "manual": "automation/manual/m1GO9Tr1WmE.json",
-      "issue": "https://github.com/Massimilianociconte/golfatine/issues/3"
+      "status": "integrated",
+      "reason": "scoreboard manuale approvato",
+      "checked_at": "2026-11-13T08:53:12",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/3",
+      "match_id": 113,
+      "frame": "automation/frames/113-m1GO9Tr1WmE.jpg"
     },
     "VsOb85KwkOA": {
       "title": "ZUGU CORSE di HALLOWEEN 🎃 con DREAD, DELUX, GABBO, MASSEO, MOLLU, JTAZ",
@@ -467,11 +463,9 @@
       "date": "2026-11-06",
       "url": "https://youtu.be/EumNtxX778M",
       "kind": "strong",
-      "status": "needs_review",
-      "reason": "golfatina senza classifica leggibile: [grab] ERRORE: EumNtxX778M: classifica non trovata negli ultimi minuti",
-      "checked_at": "2026-11-13T01:18:34",
-      "frame": null,
-      "manual": "automation/manual/EumNtxX778M.json",
+      "status": "skipped",
+      "reason": "scartato a mano (manual action=skip)",
+      "checked_at": "2026-11-13T08:53:12",
       "issue": "https://github.com/Massimilianociconte/golfatine/issues/5"
     },
     "4TYDyh0ePWQ": {
