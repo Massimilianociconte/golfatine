@@ -23,7 +23,8 @@
       "reason": "golfatina senza classifica leggibile: [grab] ERRORE: _zQDswRqjx4: classifica non trovata negli ultimi minuti",
       "checked_at": "2026-11-13T03:11:52",
       "frame": null,
-      "manual": "automation/manual/_zQDswRqjx4.json"
+      "manual": "automation/manual/_zQDswRqjx4.json",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/6"
     },
     "tua4jbG-ydI": {
       "title": "QUESTO MARIO PARTY NON E' FAMILY FRIENDLY con Mollu, Dread, Jtaz, Delux e Rohn",
