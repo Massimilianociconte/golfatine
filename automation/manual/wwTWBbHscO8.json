@@ -3,9 +3,8 @@
   "youtube_id": "wwTWBbHscO8",
   "title": "UNA GOLFATINA ALTERNATIVA. con Delux, Dread, Mollu, Masseo & JTaz",
   "url": "https://youtu.be/wwTWBbHscO8",
-  "reason": "golfatina senza classifica leggibile: [grab] ERRORE: wwTWBbHscO8: classifica non trovata negli ultimi minuti",
   "approved": false,
-  "action": "",
+  "action": "skip",
   "par": null,
   "players": [
     {
@@ -34,5 +33,6 @@
         0
       ]
     }
-  ]
+  ],
+  "note": "Altro gioco (classifica a punti/tempi, 'Standings'): non e' una classifica a colpi su 18 buche."
 }

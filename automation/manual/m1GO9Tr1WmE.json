@@ -3,8 +3,7 @@
   "youtube_id": "m1GO9Tr1WmE",
   "title": "NON DOVEVAMO ATTIVARE QUESTA MODALITÀ SULLA GOLFATINA.. con Mollu, Gabbo, Delux, Masseo, Jtaz e Rohn",
   "url": "https://youtu.be/m1GO9Tr1WmE",
-  "reason": "frame crop_1.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_0.json (correggere le celle e riprovare con --scoreboard)); frame crop_5.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_1.json (correggere le celle e riprovare con --scoreboard)); frame crop_2.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_2.json (correggere le celle e riprovare con --scoreboard)); frame crop_3.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_3.json (correggere le celle e riprovare con --scoreboard)); frame crop_4.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_4.json (correggere le celle e riprovare con --scoreboard)); nessuna lettura valida",
-  "approved": false,
+  "approved": true,
   "action": "",
   "par": 39,
   "players": [
@@ -13,42 +12,151 @@
       "position": 1,
       "totalScore": 56,
       "diffPar": 17,
-      "holes": null
+      "holes": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        1,
+        4,
+        4,
+        3,
+        1,
+        7,
+        3,
+        2,
+        2,
+        3,
+        3,
+        10
+      ]
     },
     {
       "name": "Mollu",
       "position": 2,
       "totalScore": 66,
       "diffPar": 27,
-      "holes": null
+      "holes": [
+        2,
+        3,
+        5,
+        2,
+        6,
+        2,
+        3,
+        5,
+        6,
+        3,
+        4,
+        6,
+        4,
+        4,
+        2,
+        3,
+        6
+      ]
     },
     {
       "name": "Just Rohn",
       "position": 3,
       "totalScore": 69,
       "diffPar": 30,
-      "holes": null
+      "holes": [
+        2,
+        3,
+        5,
+        3,
+        3,
+        3,
+        3,
+        7,
+        5,
+        3,
+        4,
+        2,
+        6,
+        6,
+        5,
+        2,
+        7
+      ]
     },
     {
       "name": "JTaz",
       "position": 4,
       "totalScore": 73,
       "diffPar": 34,
-      "holes": null
+      "holes": [
+        2,
+        3,
+        3,
+        3,
+        4,
+        4,
+        3,
+        5,
+        6,
+        5,
+        4,
+        5,
+        4,
+        5,
+        5,
+        3,
+        9
+      ]
     },
     {
       "name": "ilMasseo",
       "position": 5,
       "totalScore": 74,
       "diffPar": 35,
-      "holes": null
+      "holes": [
+        4,
+        3,
+        9,
+        5,
+        4,
+        2,
+        3,
+        9,
+        3,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        8
+      ]
     },
     {
       "name": "GaBBo",
       "position": 6,
       "totalScore": 76,
       "diffPar": 37,
-      "holes": null
+      "holes": [
+        3,
+        3,
+        1,
+        4,
+        5,
+        4,
+        3,
+        7,
+        4,
+        7,
+        5,
+        12,
+        3,
+        4,
+        3,
+        2,
+        6
+      ]
     }
-  ]
+  ],
+  "note": "Trascritto a mano dal frame (checksum ok su tutte le righe). Il video taglia prima della classifica finale: e' la classifica dopo 17 buche, integrata a 17 buche come #44/#59/#63/#75/#80. 'Cannuccia Bianca' = nome in gioco di GaBBo (titolo: con Mollu, Gabbo, Delux, Masseo, Jtaz e Rohn). Par 39 = riga verde."
 }

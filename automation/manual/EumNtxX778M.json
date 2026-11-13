@@ -3,9 +3,8 @@
   "youtube_id": "EumNtxX778M",
   "title": "GOLFATINA NETFLIX su SQUID GAME ⛳️ con DREAD, MASSEO, MOLLU, JTAZ",
   "url": "https://youtu.be/EumNtxX778M",
-  "reason": "golfatina senza classifica leggibile: [grab] ERRORE: EumNtxX778M: classifica non trovata negli ultimi minuti",
   "approved": false,
-  "action": "",
+  "action": "skip",
   "par": null,
   "players": [
     {
@@ -34,5 +33,6 @@
         0
       ]
     }
-  ]
+  ],
+  "note": "Modalita' Netflix a punti su 6 buche ('Punteggi finali' 2155/1920/1670/1485): non confrontabile."
 }

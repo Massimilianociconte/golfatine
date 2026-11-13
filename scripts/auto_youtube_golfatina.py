@@ -217,8 +217,10 @@ def validate_sb(sb):
         if name not in known:
             errs.append(f"giocatore sconosciuto {p.get('name')!r}")
         holes = p.get("holes") or []
-        if len(holes) != 18 or not all(isinstance(h, int) and h >= 1 for h in holes):
-            errs.append(f"{name}: servono 18 buche intere >= 1")
+        # meno di 18 solo se approvato a mano (partita interrotta/ridotta):
+        # la lettura automatica produce sempre 18 buche
+        if not 1 <= len(holes) <= 18 or not all(isinstance(h, int) and h >= 1 for h in holes):
+            errs.append(f"{name}: servono da 1 a 18 buche intere >= 1 (niente 0)")
             continue
         if sum(holes) != p.get("totalScore"):
             errs.append(f"{name}: somma buche {sum(holes)} != totale {p.get('totalScore')}")
@@ -227,6 +229,8 @@ def validate_sb(sb):
         positions.append(p.get("position"))
     if players and not positions_consistent(players):
         errs.append(f"posizioni incoerenti coi totali: {positions}")
+    if len({len(p.get("holes") or []) for p in players}) > 1:
+        errs.append("numero di buche diverso tra i giocatori")
     names = [auto.canon_player(p.get("name")) for p in players]
     if len(set(names)) != len(names):
         errs.append(f"nomi duplicati: {names}")
@@ -285,6 +289,8 @@ def consensus(crops, workdir, expected_rows=None):
         if pos_note:
             log(f"  {pos_note}")
         errs = validate_sb(ok)
+        if any(len(p.get("holes") or []) != 18 for p in ok.get("players") or []):
+            errs.append("lettura automatica: servono 18 buche (meno solo a mano)")
         if expected_rows and len(ok.get("players") or []) != expected_rows:
             errs.append(f"letti {len(ok.get('players') or [])} giocatori ma nel frame "
                         f"ci sono {expected_rows} righe")
@@ -455,15 +461,18 @@ def run(args):
     ledger = watch.load_ledger()
     cands = watch.candidates(ledger)
     # anche i needs_review con manuale approvato vanno ripresi
+    seen = {c["youtube_id"] for c in cands}
     for yt, v in ledger["videos"].items():
-        if v.get("status") == "needs_review" and yt not in {c["youtube_id"] for c in cands}:
+        if v.get("status") == "needs_review" and yt not in seen:
             mp = os.path.join(MANUAL_DIR, f"{yt}.json")
             if os.path.isfile(mp):
                 with open(mp, encoding="utf-8") as f:
                     man = json.load(f)
                 if man.get("approved") or man.get("action") == "skip":
-                    cands.append({k: v[k] for k in ("youtube_id", "title", "channel", "published",
-                                                    "date", "url", "kind") if k in v})
+                    # nel ledger l'ID e' la chiave, non un campo
+                    cands.append({"youtube_id": yt, **{k: v[k] for k in (
+                        "title", "channel", "published", "date", "url", "kind") if k in v}})
+                    seen.add(yt)
     if args.only:
         cands = [c for c in cands if c["youtube_id"] in args.only]
     if args.skip_weak:

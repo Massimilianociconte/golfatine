@@ -321,13 +321,14 @@ Mappe alias: `PLAYER_ALIASES` + `KNOWN_EXTRA_PLAYERS` in
 
 - `Just Rohn` ← Rohn, Rohn JR (canale video: `Just Rohn JR`)
 - `nonsonodread` ← Dread (canale video: `Around Dread`)
-- `GaBBo` ← Gabbo, Gabbines (canale video: `GaBBoDSQ`)
+- `GaBBo` ← Gabbo, Gabbines, **Cannuccia Bianca** (nome in gioco: vedi #86/#88 e
+  `m1GO9Tr1WmE`, titoli con "Gabbo"/"Cannuccia" e GaBBo in classifica) (canale video: `GaBBoDSQ`)
 - `ilMasseo` ← Masseo (canale video archivio: `oessaM`)
 - `Delux` (canale video: `Delux`), `Mollu` (canale video: `Mollu`),
   `JTaz` (canale video: `JTaz Extra`)
 - Comparse storiche con scoreboard (fuori dai 7 fissi forecast):
   `Fava`, `Just Marzaa`, `nbayungchape`
-- Comparse future mai viste (es. ospiti tipo Cannuccia/Paolo se un giorno avranno
+- Comparse future mai viste (es. ospiti tipo Paolo se un giorno avranno
   scoreboard): la pipeline abortisce apposta → aggiungerle a `KNOWN_EXTRA_PLAYERS`
   (+ alias se serve) e rilanciare.
 - Canale video ≠ nome giocatore: il canale si verifica via oEmbed (Passo 4), mai dal titolo.
@@ -341,5 +342,8 @@ Mappe alias: `PLAYER_ALIASES` + `KNOWN_EXTRA_PLAYERS` in
   contano in `totalMatches`/`totalVideos` ma sono esclusi dal forecast TimesFM.
 - `totalPar` storici anomali (es. 45, 145: formati speciali a squadre/buche ridotte):
   il par upcoming è la mediana degli ultimi 10, robusta agli outlier — non correggerli.
-- Formati non a 18 buche: `load_scoreboard` richiede 18 valori (abort); se un futuro
-  video ha un formato diverso, aggiornare validazione + `enrich_match` prima di integrare.
+- Formati non a 18 buche: la lettura automatica richiede sempre 18 buche. Partite
+  interrotte o a buche ridotte (es. video che taglia prima della classifica finale)
+  si integrano solo da scoreboard manuale approvato con N<18 buche (stesso N per
+  tutti, nessuno 0): `holeCount`=N, CSV con `bN+1..b18` vuote, par = totale riga
+  verde (come #44/#59/#63/#75/#80 a 17 buche).

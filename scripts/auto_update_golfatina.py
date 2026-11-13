@@ -281,6 +281,9 @@ def load_scoreboard(path, new_ids):
     for mid, entry in items:
         par = int(entry["par"])
         rows = []
+        counts = {len(p["holes"]) for p in entry["players"]}
+        if len(counts) != 1:
+            fail(f"match {mid}: numero di buche diverso tra i giocatori: {sorted(counts)}")
         for p in entry["players"]:
             name = canon_player(p["name"])
             if p["name"] != name:
@@ -292,8 +295,10 @@ def load_scoreboard(path, new_ids):
                      f"aggiungere l'alias a PLAYER_ALIASES (e a CANONICAL in "
                      f"scripts/extract_scoreboard.py). Nomi noti: {sorted(known)}")
             holes = [int(h) for h in p["holes"]]
-            if len(holes) != 18:
-                fail(f"match {mid} {name}: attese 18 buche, trovate {len(holes)}")
+            # 18 di norma; meno solo per partite interrotte o a buche ridotte
+            # (come #44/#59/#63/#75/#80, holeCount 17): mai buche a 0.
+            if not 1 <= len(holes) <= 18 or min(holes) < 1:
+                fail(f"match {mid} {name}: servono 1..18 buche >= 1, trovate {holes}")
             if sum(holes) != int(p["totalScore"]):
                 fail(f"match {mid} {name}: sum(buche)={sum(holes)} != totale={p['totalScore']}")
             if int(p["totalScore"]) - par != int(p["diffPar"]):
