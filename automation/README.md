@@ -78,7 +78,7 @@ Un nuovo giocatore va prima aggiunto a `PLAYER_ALIASES`/`KNOWN_EXTRA_PLAYERS`
   (sostituisce lo screenshot nel DOCX).
 - `review/`, `manual/`: casi da verificare (si svuotano da soli dopo l'integrazione).
 
-Il sito si aggiorna dal push solo se il progetto Vercel `losdrogogolfometro`
+Il sito (`losdrogogolfometro.cloud`) si aggiorna dal push solo se il progetto Vercel `losdrogogolfometro`
 è collegato al repo GitHub (Vercel → Project → Settings → Git → Connect).
 I push che toccano solo `automation/` non rifanno il deploy: `ignoreCommand`
 in `vercel.json` confronta con l'ultimo commit deployato
