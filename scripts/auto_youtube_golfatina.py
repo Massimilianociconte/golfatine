@@ -308,9 +308,10 @@ def consensus(crops, workdir, expected_rows=None):
 # ---------------------------------------------------------- per-video
 def grab(yt_id, outdir, extend=True):
     env = dict(os.environ)
-    cmd = [sys.executable, GRAB_SCRIPT, yt_id, "--outdir", outdir]
+    cmd = [sys.executable, GRAB_SCRIPT, "--outdir", outdir]
     if not extend:
         cmd.append("--no-extend")
+    cmd += ["--", yt_id]  # gli ID possono iniziare con "-" (es. -niH7IVcdqM)
     r = subprocess.run(cmd,
                        capture_output=True, text=True, timeout=3600, env=env)
     for line in (r.stderr or "").splitlines():
