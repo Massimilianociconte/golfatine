@@ -39,3 +39,7 @@ dist-ssr
 # bytecode python (mai committare)
 __pycache__/
 *.pyc
+
+# bot golfatine: marker del clone dedicato + symlink al venv MLX (mai committare)
+.golfatine-bot
+.venv-mlx

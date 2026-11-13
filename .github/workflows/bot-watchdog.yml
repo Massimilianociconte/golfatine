@@ -1,0 +1,26 @@
+name: bot-watchdog
+# Controllo remoto giornaliero: avvisa (Issue) se il bot sul Mac non ha
+# integrato golfatine uscite da piu' di 36 ore. Solo feed RSS, niente download.
+on:
+  schedule:
+    - cron: "17 7 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: bot-watchdog
+  cancel-in-progress: true
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Controlla golfatine in attesa
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/bot_watchdog.py

@@ -1,5 +1,22 @@
 # Golfatine — Istruzioni agente AI (root)
 
+## Bot automatico YouTube (dal 2026-11-13: via principale)
+
+Le nuove golfatine NON passano più da DOCX/PDF: il bot sul Mac
+(`scripts/auto_youtube_golfatina.py`, agente launchd `com.golfatine.bot`,
+clone dedicato `~/.golfatine-bot/repo`) controlla ogni ora i feed RSS dei 7
+canali, trova la classifica finale nel video, la legge col VLM con consenso
+su 2 frame + checksum, integra, rigenera il forecast, testa e fa push.
+Dettagli, installazione e gestione dei casi dubbi: `automation/README.md`.
+
+- Prima di modificare dati in locale: `git pull` (il bot committa su `main`).
+- Stato per video: `automation/ledger.json`; casi da verificare:
+  `automation/manual/<ID>.json` + Issue GitHub `[bot] …`.
+- Cloud (GitHub Actions) scartato: YouTube blocca i download dai datacenter.
+- La pipeline DOCX/PDF qui sotto resta come fallback manuale (es. bot fermo
+  o video da integrare a mano). Se usata dopo il bot, i numeri ufficiali
+  ripartono da `max(CSV, TS)`: aggiungere le voci nuove al DOCX con quei numeri.
+
 > Applica questa regola OGNI volta che `lista-golfatine.docx` e/o `Lista-golfatine.pdf`
 > nella root vengono aggiornati con una nuova golfatina. Eseguila integralmente,
 > senza saltare passi. Via prioritaria = pipeline automatizzata qui sotto (§0).
