@@ -43,6 +43,9 @@ Dopo un giro del bot, nella copia di sviluppo fai `git pull` prima di lavorare.
    passa i checksum (somma buche = totale, totale − par = diff), i nomi
    sono canonici e il numero di giocatori letti è uguale al numero di righe
    misurato in pixel nel frame (i checksum non vedono una riga mancante).
+   Le posizioni si ricavano sempre dai totali (pari merito = stessa
+   posizione: 1,2,3,3,4), mai da quelle lette. Se il modello entra in loop
+   riprova con immagine ridimensionata e temperatura diversa.
    Classifica identica a un match esistente = doppione.
 5. Numerazione progressiva (#N+1…) in ordine di pubblicazione, ricalcolo
    statistiche/H2H/summary/testi, forecast TimesFM, `npm test` + `tsc`,
