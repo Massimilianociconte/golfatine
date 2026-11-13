@@ -1,0 +1,38 @@
+{
+  "_help": "Correggi le celle, poi approved=true. action=skip per scartare il video.",
+  "youtube_id": "wwTWBbHscO8",
+  "title": "UNA GOLFATINA ALTERNATIVA. con Delux, Dread, Mollu, Masseo & JTaz",
+  "url": "https://youtu.be/wwTWBbHscO8",
+  "reason": "golfatina senza classifica leggibile: [grab] ERRORE: wwTWBbHscO8: classifica non trovata negli ultimi minuti",
+  "approved": false,
+  "action": "",
+  "par": null,
+  "players": [
+    {
+      "name": "",
+      "position": 1,
+      "totalScore": 0,
+      "diffPar": 0,
+      "holes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
