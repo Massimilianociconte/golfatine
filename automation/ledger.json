@@ -90,7 +90,8 @@
       "reason": "golfatina senza classifica leggibile: [grab] ERRORE: wwTWBbHscO8: classifica non trovata negli ultimi minuti",
       "checked_at": "2026-11-13T01:18:34",
       "frame": null,
-      "manual": "automation/manual/wwTWBbHscO8.json"
+      "manual": "automation/manual/wwTWBbHscO8.json",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/2"
     },
     "m1GO9Tr1WmE": {
       "title": "NON DOVEVAMO ATTIVARE QUESTA MODALITÀ SULLA GOLFATINA.. con Mollu, Gabbo, Delux, Masseo, Jtaz e Rohn",
@@ -103,7 +104,8 @@
       "reason": "frame crop_1.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_0.json (correggere le celle e riprovare con --scoreboard)); frame crop_5.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_1.json (correggere le celle e riprovare con --scoreboard)); frame crop_2.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_2.json (correggere le celle e riprovare con --scoreboard)); frame crop_3.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_3.json (correggere le celle e riprovare con --scoreboard)); frame crop_4.png: lettura non valida ([extract] ERRORE: estrazione incompleta: Delux: riga invalida len=? sum=? tot=56; Mollu: riga invalida len=? sum=? tot=66; Just Rohn: riga invalida len=? sum=? tot=69; JTaz: riga invalida len=? sum=? tot=73; ilMasseo: riga invalida len=? sum=? tot=74; GaBBo: riga invalida len=? sum=? tot=76 | draft salvato in /var/folders/rb/gltk48212j39qn2wskhlj3s80000gn/T/golfatine_bot_6czxrbri/m1GO9Tr1WmE/sb_4.json (correggere le celle e riprovare con --scoreboard)); nessuna lettura valida",
       "checked_at": "2026-11-13T01:18:34",
       "frame": "automation/review/m1GO9Tr1WmE.jpg",
-      "manual": "automation/manual/m1GO9Tr1WmE.json"
+      "manual": "automation/manual/m1GO9Tr1WmE.json",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/3"
     },
     "fIghppAgKuY": {
       "title": "🎃 LA GOLFATINA FA 90! 🎃 con Delux, Dread, Masseo, Mollu & JTaz",
@@ -116,7 +118,8 @@
       "reason": "frame crop_1.png: lettura non valida ([extract] ERRORE: passata full-image senza JSON valido); frame crop_5.png: lettura non valida ([extract] ERRORE: passata full-image senza JSON valido); frame crop_2.png: lettura non valida ([extract] ERRORE: passata full-image senza JSON valido); frame crop_3.png: lettura non valida ([extract] ERRORE: passata full-image senza JSON valido); 1 letture valide ma discordanti",
       "checked_at": "2026-11-13T01:18:34",
       "frame": "automation/review/fIghppAgKuY.jpg",
-      "manual": "automation/manual/fIghppAgKuY.json"
+      "manual": "automation/manual/fIghppAgKuY.json",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/4"
     },
     "1p1FTefHeUM": {
       "title": "SARÒ IL NUOVO PROGETTO!?: Golfatina con @GaBBoDSQ @oDeluxx @JTaz @Mollu",
@@ -168,7 +171,8 @@
       "reason": "golfatina senza classifica leggibile: [grab] ERRORE: EumNtxX778M: classifica non trovata negli ultimi minuti",
       "checked_at": "2026-11-13T01:18:34",
       "frame": null,
-      "manual": "automation/manual/EumNtxX778M.json"
+      "manual": "automation/manual/EumNtxX778M.json",
+      "issue": "https://github.com/Massimilianociconte/golfatine/issues/5"
     },
     "4TYDyh0ePWQ": {
       "title": "UNA GOLFATINA NEL MONDO DI SQUID GAME?!",
