@@ -15,15 +15,15 @@ const KNOWN_CHANNELS = new Set([
   'JTaz Extra',
 ]);
 
-describe('golfatine 62-113 integration', () => {
-  it('has 108 scorecards with official numbering (79 merged into 30)', () => {
+describe('golfatine 62-114 integration', () => {
+  it('has 109 scorecards with official numbering (79 merged into 30)', () => {
     const ids = MATCHES_DATA.map((m) => m.id);
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids).toEqual([...ids].sort((a, b) => a - b));
-    expect(GLOBAL_SUMMARY.totalMatches).toBe(108);
-    expect(GLOBAL_SUMMARY.totalVideos).toBe(113);
-    expect(GLOBAL_SUMMARY.totalScorecards).toBe(513);
-    for (const expected of [62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113]) {
+    expect(GLOBAL_SUMMARY.totalMatches).toBe(109);
+    expect(GLOBAL_SUMMARY.totalVideos).toBe(114);
+    expect(GLOBAL_SUMMARY.totalScorecards).toBe(518);
+    for (const expected of [62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]) {
       expect(ids).toContain(expected);
     }
     expect(ids).not.toContain(79);
@@ -56,7 +56,7 @@ describe('golfatine 62-113 integration', () => {
 
   it('has full scorecards for 83-84-87-88-89 (no video-only left)', () => {
     const byId = new Map(MATCHES_DATA.map((m) => [m.id, m]));
-    for (const vid of [83, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113]) {
+    for (const vid of [83, 84, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]) {
       const m = byId.get(vid)!;
       expect(m.hasScorecard).not.toBe(false);
       expect(m.players.length).toBeGreaterThan(0);
@@ -89,6 +89,7 @@ describe('golfatine 62-113 integration', () => {
     expect(byId.get(111)?.channel).toBe('Delux');
     expect(byId.get(112)?.channel).toBe('Delux');
     expect(byId.get(113)?.channel).toBe('Mollu');
+    expect(byId.get(114)?.channel).toBe('JTaz Extra');
   });
 
   it('maps every player to exactly one publisher channel and vice versa', () => {
@@ -123,8 +124,8 @@ describe('golfatine 62-113 integration', () => {
 });
 
 describe('timesfm forecast on full dataset', () => {
-  it('forecasts match #114 for the 7 main players with coherent probabilities', () => {
-    expect(UPCOMING_MATCH_FORECAST.matchNumber).toBe(114);
+  it('forecasts match #115 for the 7 main players with coherent probabilities', () => {
+    expect(UPCOMING_MATCH_FORECAST.matchNumber).toBe(115);
     expect(UPCOMING_MATCH_FORECAST.modelEngine).toContain('TimesFM');
     expect(UPCOMING_MATCH_FORECAST.playersForecast).toHaveLength(7);
     const probSum = UPCOMING_MATCH_FORECAST.playersForecast.reduce(
