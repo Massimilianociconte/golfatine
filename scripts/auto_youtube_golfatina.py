@@ -166,6 +166,40 @@ def norm_sb(sb):
          tuple(int(h) for h in p["holes"])) for p in sb["players"])))
 
 
+def positions_consistent(players):
+    """Posizioni coerenti coi totali: totale minore -> posizione minore,
+    totali uguali -> stessa posizione (pari merito), si parte da 1."""
+    ps = [(p.get("totalScore"), p.get("position")) for p in players]
+    if not all(isinstance(t, int) and isinstance(q, int) and q >= 1 for t, q in ps):
+        return False
+    if min(q for _, q in ps) != 1:
+        return False
+    for t1, q1 in ps:
+        for t2, q2 in ps:
+            if (t1 < t2 and not q1 < q2) or (t1 == t2 and q1 != q2):
+                return False
+    return True
+
+
+def normalize_positions(sb):
+    """Posizioni SEMPRE ricavate dai totali, come le mostra il gioco
+    (pari merito "denso": 1, 2, 3, 3, 4 — vedi #91, #97, #99).
+    Il VLM legge male le posizioni a pari merito (tende a scrivere 1..N) e in
+    modalita' a squadre il gioco mostra "1" su tutte le righe: i totali
+    invece sono validati dai checksum, quindi sono la fonte affidabile."""
+    players = sb.get("players") or []
+    if not players or not all(isinstance(p.get("totalScore"), int) for p in players):
+        return sb, None
+    totals = sorted({p["totalScore"] for p in players})
+    old = [p.get("position") for p in players]
+    for p in players:
+        p["position"] = 1 + totals.index(p["totalScore"])
+    players.sort(key=lambda p: (p["position"], p["name"]))
+    new = [p["position"] for p in players]
+    return sb, (f"posizioni ricalcolate dai totali: lette {old} -> {new}"
+                if sorted(old, key=lambda x: (x is None, x)) != new else None)
+
+
 def validate_sb(sb):
     """Errori di validazione (lista vuota = ok). Stesse regole di load_scoreboard."""
     errs = []
@@ -191,13 +225,7 @@ def validate_sb(sb):
         if p.get("diffPar") is None or p.get("totalScore", 0) - par != p.get("diffPar"):
             errs.append(f"{name}: diffPar incoerente col par {par}")
         positions.append(p.get("position"))
-    # pari merito ammessi (es. 1,1,2,3,4): posizioni intere in 1..N,
-    # non decrescenti al crescere del totale
-    order = sorted(((p.get("totalScore"), p.get("position")) for p in players),
-                   key=lambda t: (t[0] if isinstance(t[0], int) else 10**6, t[1] or 0))
-    pos_seq = [t[1] for t in order]
-    if (not all(isinstance(x, int) and 1 <= x <= len(players) for x in pos_seq)
-            or pos_seq != sorted(pos_seq) or (pos_seq and pos_seq[0] != 1)):
+    if players and not positions_consistent(players):
         errs.append(f"posizioni incoerenti coi totali: {positions}")
     names = [auto.canon_player(p.get("name")) for p in players]
     if len(set(names)) != len(names):
@@ -253,6 +281,9 @@ def consensus(crops, workdir, expected_rows=None):
             notes.append(f"frame {os.path.basename(c['path'])}: lettura non valida "
                          f"({tail.strip().splitlines()[-1] if tail.strip() else '?'})")
             continue
+        ok, pos_note = normalize_positions(ok)
+        if pos_note:
+            log(f"  {pos_note}")
         errs = validate_sb(ok)
         if expected_rows and len(ok.get("players") or []) != expected_rows:
             errs.append(f"letti {len(ok.get('players') or [])} giocatori ma nel frame "
@@ -328,7 +359,7 @@ def process(c, ledger, keys, work):
         if man.get("action") == "skip":
             return {"status": "skipped", "reason": "scartato a mano (manual action=skip)"}
         if man.get("approved"):
-            sb = {"par": man["par"], "players": man["players"]}
+            sb, _note = normalize_positions({"par": man["par"], "players": man["players"]})
             errs = validate_sb(sb)
             if errs:
                 return {"status": "needs_review", "reason": "manuale non valido: " + "; ".join(errs),

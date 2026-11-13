@@ -372,15 +372,25 @@ def extract(image_path, out_path, model=MODEL_DEFAULT, workdir="/tmp/sb_extract"
     reader = Reader(model)
 
     full, full_raw = None, ""
-    tries = [(p, a) for a in (1, 2) for p in PROMPTS_FULL]
-    for prompt, attempt in tries:
-        full_raw = reader.ask(image_path, prompt, 1500)
+    # A temperatura 0 la stessa immagine da' sempre lo stesso output: se il
+    # modello entra in un loop di ripetizione ("3, 3, 3, …" senza chiudere il
+    # JSON) ripetere e' inutile. Varianti: immagine ridimensionata (input
+    # diverso, stessa informazione), poi un po' di temperatura. Le celle
+    # restano protette dai checksum e dal consenso fra frame del bot.
+    im = Image.open(image_path).convert("RGB")
+    alt_w = 1850 if abs(im.width - 1850) > 60 else int(im.width * 0.9)
+    alt_path = os.path.join(workdir, "full_alt.png")
+    im.resize((alt_w, round(im.height * alt_w / im.width)), Image.LANCZOS).save(alt_path)
+    variants = [(image_path, 0.0, 1), (alt_path, 0.0, 2), (image_path, 0.3, 3)]
+    tries = [(p, img, temp, a) for img, temp, a in variants for p in PROMPTS_FULL]
+    for prompt, img, temp, attempt in tries:
+        full_raw = reader.ask(img, prompt, 1500, temp=temp)
         with open(os.path.join(workdir, f"full_raw_{attempt}.txt"), "w", encoding="utf-8") as f:
             f.write(full_raw)
         full = parse_json(full_raw)
         if full and full.get("players"):
-            if (prompt, attempt) != tries[0]:
-                log("full-image riuscita (prompt alternativo/tentativo successivo)")
+            if (prompt, img, temp, attempt) != tries[0]:
+                log(f"full-image riuscita al tentativo {attempt} (variante immagine/temperatura)")
             break
         log(f"full-image senza JSON valido (tentativo {attempt}), riprovo…")
         full = None
