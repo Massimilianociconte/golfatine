@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: yt-dlp (fallback se i feed RSS sono giu')
+        run: pip install --quiet yt-dlp
       - name: Controlla golfatine in attesa
         env:
           GH_TOKEN: ${{ github.token }}

@@ -31,7 +31,9 @@ Dopo un giro del bot, nella copia di sviluppo fai `git pull` prima di lavorare.
 ## Cosa fa ogni giro
 
 1. `git pull` del clone bot.
-2. Feed RSS dei 7 canali (`scripts/youtube_watch.py`, nessuna API key).
+2. Feed RSS dei 7 canali (`scripts/youtube_watch.py`, nessuna API key);
+   se YouTube manda i feed in 404 ripiega sulla scheda "Video" del canale
+   (yt-dlp, titoli originali + data esatta per i candidati nuovi).
    Candidato **forte** = titolo con "golf…"; **debole** = titolo con almeno 2
    nomi del roster (per titoli senza "golf": se non c'è classifica viene
    scartato in silenzio). Shorts scartati per durata.

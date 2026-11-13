@@ -30,7 +30,7 @@ def gh(*args):
 def main():
     now = dt.datetime.now(dt.timezone.utc)
     pending = []
-    for c in watch.candidates():
+    for c in watch.candidates(precise=False):
         if c["kind"] != "strong":
             continue
         age = now - dt.datetime.fromisoformat(c["published"])
