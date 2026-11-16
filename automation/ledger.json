@@ -224,10 +224,9 @@
       "date": "2026-10-16",
       "url": "https://youtu.be/GuG9eOXUpeA",
       "kind": "weak",
-      "status": "retry",
-      "reason": "ERROR: [youtube] GuG9eOXUpeA: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies",
-      "checked_at": "2026-11-16T06:07:31",
-      "attempts": 2
+      "status": "not_golfatina",
+      "reason": "nessuna classifica nel video",
+      "checked_at": "2026-11-16T08:39:36"
     },
     "Jjv2bNoOtf4": {
       "title": "SOPRAVVIVERE AL TURNO DI NOTTE E' IMPOSSIBILE - Shift At Midnight ITA con Mollu, Dread e Gabbo",
@@ -283,10 +282,9 @@
       "date": "2026-10-16",
       "url": "https://youtu.be/_K5QIDTh90Y",
       "kind": "weak",
-      "status": "retry",
-      "reason": "ERROR: [youtube] _K5QIDTh90Y: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies",
-      "checked_at": "2026-11-16T06:07:31",
-      "attempts": 2
+      "status": "not_golfatina",
+      "reason": "nessuna classifica nel video",
+      "checked_at": "2026-11-16T08:39:36"
     },
     "afd3hUxIS9Q": {
       "title": "FALL GUYS IN SEDIA A ROTELLE con Mollu, Dread, Delux, Gabbo e Rohn",
@@ -307,10 +305,9 @@
       "date": "2026-10-16",
       "url": "https://youtu.be/jUx1kf3sEis",
       "kind": "weak",
-      "status": "retry",
-      "reason": "ERROR: [youtube] jUx1kf3sEis: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies",
-      "checked_at": "2026-11-16T06:07:31",
-      "attempts": 2
+      "status": "not_golfatina",
+      "reason": "nessuna classifica nel video",
+      "checked_at": "2026-11-16T08:39:36"
     },
     "p2vJMexWob0": {
       "title": "INIZIA IL CALCIO-SPETTACOLO! THE GROUNDS su FC 27 con ROHN, DREAD, DELUX e MOLLU! ⚽",
