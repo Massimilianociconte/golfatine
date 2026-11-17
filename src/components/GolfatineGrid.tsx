@@ -271,7 +271,7 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
       {/* Results Count Banner */}
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 px-1">
         <div>
-          Mostrando <strong className="text-white font-mono">{filteredMatches.length}</strong> su <strong className="text-white font-mono">{MATCHES_DATA.length}</strong> Schede in archivio <span className="text-slate-500">(115 episodi ufficiali #1–#115)</span>
+          Mostrando <strong className="text-white font-mono">{filteredMatches.length}</strong> su <strong className="text-white font-mono">{MATCHES_DATA.length}</strong> Schede in archivio <span className="text-slate-500">(116 episodi ufficiali #1–#116)</span>
           {channelFilter !== 'all' && (
             <span className="ml-1 text-slate-400">
               pubblicate da <strong className="text-[#d4af37]">{channelFilter}</strong>
@@ -295,9 +295,9 @@ const GolfatineGridComponent: React.FC<GolfatineGridProps> = ({
         )}
       </div>
 
-      {/* Numbering note: official episodes are #1–#115, archive cards are fewer */}
+      {/* Numbering note: official episodes are #1–#116, archive cards are fewer */}
       <p className="text-[10px] font-mono text-slate-500 px-1 -mt-4">
-        Numerazione ufficiale episodi #1–#115 • assenti in archivio: #14–#17 (senza scorecard) e #79 (duplicato del #30) • 110 scorecard complete
+        Numerazione ufficiale episodi #1–#116 • assenti in archivio: #14–#17 (senza scorecard) e #79 (duplicato del #30) • 111 scorecard complete
       </p>
 
       {/* Matches Grid (paginated to keep DOM small) */}

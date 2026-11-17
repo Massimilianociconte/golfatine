@@ -96,12 +96,12 @@ export interface GlobalSummary {
 }
 
 export const GLOBAL_SUMMARY: GlobalSummary = {
-  "totalMatches": 110,
-  "totalVideos": 115,
-  "totalScorecards": 523,
-  "totalHolesPlayed": 9236,
-  "totalHIOs": 1000,
-  "totalDisasters": 565,
+  "totalMatches": 111,
+  "totalVideos": 116,
+  "totalScorecards": 528,
+  "totalHolesPlayed": 9326,
+  "totalHIOs": 1039,
+  "totalDisasters": 573,
   "mostWinsPlayer": "Delux",
   "bestDiffParRecord": -60,
   "worstScoreRecord": 455
@@ -141,23 +141,23 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
       "tiltControl": 80,
       "fortuna": 85
     },
-    "matchesPlayed": 81,
+    "matchesPlayed": 82,
     "wins": 26,
-    "winRate": 32.1,
+    "winRate": 31.7,
     "podiums": 72,
-    "podiumRate": 88.9,
+    "podiumRate": 87.8,
     "avgScore": 72.4,
-    "avgDiffPar": 8.8,
+    "avgDiffPar": 8.4,
     "bestScore": 38,
     "worstScore": 329,
     "bestDiffPar": -43,
     "worstDiffPar": 299,
-    "totalHoles": 1432,
-    "totalHIOs": 164,
-    "hioRate": 11.5,
-    "totalTwos": 332,
-    "totalThrees": 315,
-    "totalDisasters": 62,
+    "totalHoles": 1450,
+    "totalHIOs": 168,
+    "hioRate": 11.6,
+    "totalTwos": 333,
+    "totalThrees": 319,
+    "totalDisasters": 64,
     "totalCapped": 32,
     "nemesis": "Delux"
   },
@@ -193,23 +193,23 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
       "tiltControl": 94,
       "fortuna": 80
     },
-    "matchesPlayed": 103,
-    "wins": 34,
-    "winRate": 33.0,
-    "podiums": 86,
-    "podiumRate": 83.5,
-    "avgScore": 71.8,
-    "avgDiffPar": 8.1,
+    "matchesPlayed": 104,
+    "wins": 35,
+    "winRate": 33.7,
+    "podiums": 87,
+    "podiumRate": 83.7,
+    "avgScore": 71.6,
+    "avgDiffPar": 7.6,
     "bestScore": 35,
     "worstScore": 248,
-    "bestDiffPar": -40,
+    "bestDiffPar": -49,
     "worstDiffPar": 218,
-    "totalHoles": 1818,
-    "totalHIOs": 252,
-    "hioRate": 13.9,
-    "totalTwos": 410,
-    "totalThrees": 344,
-    "totalDisasters": 102,
+    "totalHoles": 1836,
+    "totalHIOs": 262,
+    "hioRate": 14.3,
+    "totalTwos": 413,
+    "totalThrees": 347,
+    "totalDisasters": 103,
     "totalCapped": 44,
     "nemesis": "Just Rohn"
   },
@@ -292,23 +292,23 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
       "tiltControl": 55,
       "fortuna": 84
     },
-    "matchesPlayed": 48,
+    "matchesPlayed": 49,
     "wins": 9,
-    "winRate": 18.8,
-    "podiums": 27,
-    "podiumRate": 56.2,
-    "avgScore": 78.5,
-    "avgDiffPar": 14.5,
+    "winRate": 18.4,
+    "podiums": 28,
+    "podiumRate": 57.1,
+    "avgScore": 78.2,
+    "avgDiffPar": 13.5,
     "bestScore": 40,
     "worstScore": 140,
-    "bestDiffPar": -17,
+    "bestDiffPar": -32,
     "worstDiffPar": 80,
-    "totalHoles": 849,
-    "totalHIOs": 64,
-    "hioRate": 7.5,
-    "totalTwos": 174,
-    "totalThrees": 179,
-    "totalDisasters": 68,
+    "totalHoles": 867,
+    "totalHIOs": 72,
+    "hioRate": 8.3,
+    "totalTwos": 175,
+    "totalThrees": 182,
+    "totalDisasters": 69,
     "totalCapped": 32,
     "nemesis": "Delux"
   },
@@ -348,24 +348,24 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
       "tiltControl": 60,
       "fortuna": 72
     },
-    "matchesPlayed": 91,
+    "matchesPlayed": 92,
     "wins": 6,
-    "winRate": 6.6,
+    "winRate": 6.5,
     "podiums": 39,
-    "podiumRate": 42.9,
-    "avgScore": 84.5,
-    "avgDiffPar": 21.5,
+    "podiumRate": 42.4,
+    "avgScore": 84.4,
+    "avgDiffPar": 21.1,
     "bestScore": 35,
     "worstScore": 455,
     "bestDiffPar": -42,
     "worstDiffPar": 425,
-    "totalHoles": 1607,
-    "totalHIOs": 146,
-    "hioRate": 9.1,
-    "totalTwos": 294,
-    "totalThrees": 353,
-    "totalDisasters": 129,
-    "totalCapped": 65,
+    "totalHoles": 1625,
+    "totalHIOs": 154,
+    "hioRate": 9.5,
+    "totalTwos": 296,
+    "totalThrees": 355,
+    "totalDisasters": 131,
+    "totalCapped": 66,
     "nemesis": "Delux"
   },
   "Mollu": {
@@ -395,23 +395,23 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
       "tiltControl": 90,
       "fortuna": 88
     },
-    "matchesPlayed": 56,
+    "matchesPlayed": 57,
     "wins": 18,
-    "winRate": 32.1,
-    "podiums": 38,
-    "podiumRate": 67.9,
-    "avgScore": 80.8,
-    "avgDiffPar": 15.3,
+    "winRate": 31.6,
+    "podiums": 39,
+    "podiumRate": 68.4,
+    "avgScore": 80.2,
+    "avgDiffPar": 14.2,
     "bestScore": 39,
     "worstScore": 455,
     "bestDiffPar": -60,
     "worstDiffPar": 425,
-    "totalHoles": 987,
-    "totalHIOs": 134,
-    "hioRate": 13.6,
-    "totalTwos": 205,
-    "totalThrees": 185,
-    "totalDisasters": 63,
+    "totalHoles": 1005,
+    "totalHIOs": 143,
+    "hioRate": 14.2,
+    "totalTwos": 208,
+    "totalThrees": 187,
+    "totalDisasters": 65,
     "totalCapped": 33,
     "nemesis": "Delux"
   },
@@ -575,12 +575,12 @@ export const PLAYERS_DATA: Record<string, PlayerProfile> = {
 export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
   "Just Rohn": {
     "Delux": {
-      "sharedMatches": 77,
+      "sharedMatches": 78,
       "p1Wins": 41,
-      "p2Wins": 33,
+      "p2Wins": 34,
       "draws": 3,
       "p1AvgScore": 73.1,
-      "p2AvgScore": 72.3,
+      "p2AvgScore": 72.0,
       "sharedMatchIds": [
         1,
         2,
@@ -658,7 +658,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "nonsonodread": {
@@ -743,12 +744,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
       ]
     },
     "ilMasseo": {
-      "sharedMatches": 31,
+      "sharedMatches": 32,
       "p1Wins": 25,
-      "p2Wins": 5,
+      "p2Wins": 6,
       "draws": 1,
-      "p1AvgScore": 71.8,
-      "p2AvgScore": 82.3,
+      "p1AvgScore": 71.9,
+      "p2AvgScore": 81.7,
       "sharedMatchIds": [
         6,
         10,
@@ -780,16 +781,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         107,
         108,
         113,
-        115
+        115,
+        116
       ]
     },
     "GaBBo": {
-      "sharedMatches": 65,
+      "sharedMatches": 66,
       "p1Wins": 53,
       "p2Wins": 12,
-      "draws": 0,
+      "draws": 1,
       "p1AvgScore": 73.4,
-      "p2AvgScore": 87.0,
+      "p2AvgScore": 86.9,
       "sharedMatchIds": [
         1,
         2,
@@ -855,16 +857,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "Mollu": {
-      "sharedMatches": 40,
+      "sharedMatches": 41,
       "p1Wins": 17,
-      "p2Wins": 22,
+      "p2Wins": 23,
       "draws": 1,
-      "p1AvgScore": 80.4,
-      "p2AvgScore": 84.4,
+      "p1AvgScore": 80.3,
+      "p2AvgScore": 83.6,
       "sharedMatchIds": [
         1,
         2,
@@ -905,7 +908,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "JTaz": {
@@ -974,11 +978,11 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
   },
   "Delux": {
     "Just Rohn": {
-      "sharedMatches": 77,
-      "p1Wins": 33,
+      "sharedMatches": 78,
+      "p1Wins": 34,
       "p2Wins": 41,
       "draws": 3,
-      "p1AvgScore": 72.3,
+      "p1AvgScore": 72.0,
       "p2AvgScore": 73.1,
       "sharedMatchIds": [
         1,
@@ -1057,7 +1061,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "nonsonodread": {
@@ -1163,12 +1168,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
       ]
     },
     "ilMasseo": {
-      "sharedMatches": 43,
-      "p1Wins": 30,
+      "sharedMatches": 44,
+      "p1Wins": 31,
       "p2Wins": 13,
       "draws": 0,
-      "p1AvgScore": 71.6,
-      "p2AvgScore": 79.9,
+      "p1AvgScore": 71.1,
+      "p2AvgScore": 79.5,
       "sharedMatchIds": [
         6,
         8,
@@ -1212,16 +1217,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         108,
         112,
         113,
-        115
+        115,
+        116
       ]
     },
     "GaBBo": {
-      "sharedMatches": 86,
-      "p1Wins": 66,
+      "sharedMatches": 87,
+      "p1Wins": 67,
       "p2Wins": 19,
       "draws": 1,
-      "p1AvgScore": 71.9,
-      "p2AvgScore": 85.4,
+      "p1AvgScore": 71.6,
+      "p2AvgScore": 85.3,
       "sharedMatchIds": [
         1,
         2,
@@ -1308,16 +1314,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         111,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "Mollu": {
-      "sharedMatches": 52,
-      "p1Wins": 26,
+      "sharedMatches": 53,
+      "p1Wins": 27,
       "p2Wins": 22,
       "draws": 4,
-      "p1AvgScore": 76.7,
-      "p2AvgScore": 82.1,
+      "p1AvgScore": 76.2,
+      "p2AvgScore": 81.5,
       "sharedMatchIds": [
         1,
         2,
@@ -1370,7 +1377,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         112,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "JTaz": {
@@ -1917,12 +1925,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
   },
   "ilMasseo": {
     "Just Rohn": {
-      "sharedMatches": 31,
-      "p1Wins": 5,
+      "sharedMatches": 32,
+      "p1Wins": 6,
       "p2Wins": 25,
       "draws": 1,
-      "p1AvgScore": 82.3,
-      "p2AvgScore": 71.8,
+      "p1AvgScore": 81.7,
+      "p2AvgScore": 71.9,
       "sharedMatchIds": [
         6,
         10,
@@ -1954,16 +1962,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         107,
         108,
         113,
-        115
+        115,
+        116
       ]
     },
     "Delux": {
-      "sharedMatches": 43,
+      "sharedMatches": 44,
       "p1Wins": 13,
-      "p2Wins": 30,
+      "p2Wins": 31,
       "draws": 0,
-      "p1AvgScore": 79.9,
-      "p2AvgScore": 71.6,
+      "p1AvgScore": 79.5,
+      "p2AvgScore": 71.1,
       "sharedMatchIds": [
         6,
         8,
@@ -2007,7 +2016,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         108,
         112,
         113,
-        115
+        115,
+        116
       ]
     },
     "nonsonodread": {
@@ -2060,12 +2070,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
       ]
     },
     "GaBBo": {
-      "sharedMatches": 38,
-      "p1Wins": 20,
+      "sharedMatches": 39,
+      "p1Wins": 21,
       "p2Wins": 16,
       "draws": 2,
-      "p1AvgScore": 78.8,
-      "p2AvgScore": 80.4,
+      "p1AvgScore": 78.4,
+      "p2AvgScore": 80.3,
       "sharedMatchIds": [
         6,
         8,
@@ -2104,16 +2114,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         107,
         108,
         113,
-        115
+        115,
+        116
       ]
     },
     "Mollu": {
-      "sharedMatches": 22,
+      "sharedMatches": 23,
       "p1Wins": 9,
-      "p2Wins": 13,
+      "p2Wins": 14,
       "draws": 0,
-      "p1AvgScore": 81.7,
-      "p2AvgScore": 78.8,
+      "p1AvgScore": 80.9,
+      "p2AvgScore": 77.6,
       "sharedMatchIds": [
         6,
         8,
@@ -2136,7 +2147,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         108,
         112,
         113,
-        115
+        115,
+        116
       ]
     },
     "JTaz": {
@@ -2196,11 +2208,11 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
   },
   "GaBBo": {
     "Just Rohn": {
-      "sharedMatches": 65,
+      "sharedMatches": 66,
       "p1Wins": 12,
       "p2Wins": 53,
-      "draws": 0,
-      "p1AvgScore": 87.0,
+      "draws": 1,
+      "p1AvgScore": 86.9,
       "p2AvgScore": 73.4,
       "sharedMatchIds": [
         1,
@@ -2267,16 +2279,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "Delux": {
-      "sharedMatches": 86,
+      "sharedMatches": 87,
       "p1Wins": 19,
-      "p2Wins": 66,
+      "p2Wins": 67,
       "draws": 1,
-      "p1AvgScore": 85.4,
-      "p2AvgScore": 71.9,
+      "p1AvgScore": 85.3,
+      "p2AvgScore": 71.6,
       "sharedMatchIds": [
         1,
         2,
@@ -2363,7 +2376,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         111,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "nonsonodread": {
@@ -2458,12 +2472,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
       ]
     },
     "ilMasseo": {
-      "sharedMatches": 38,
+      "sharedMatches": 39,
       "p1Wins": 16,
-      "p2Wins": 20,
+      "p2Wins": 21,
       "draws": 2,
-      "p1AvgScore": 80.4,
-      "p2AvgScore": 78.8,
+      "p1AvgScore": 80.3,
+      "p2AvgScore": 78.4,
       "sharedMatchIds": [
         6,
         8,
@@ -2502,16 +2516,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         107,
         108,
         113,
-        115
+        115,
+        116
       ]
     },
     "Mollu": {
-      "sharedMatches": 47,
+      "sharedMatches": 48,
       "p1Wins": 16,
-      "p2Wins": 29,
+      "p2Wins": 30,
       "draws": 2,
-      "p1AvgScore": 91.7,
-      "p2AvgScore": 83.3,
+      "p1AvgScore": 91.3,
+      "p2AvgScore": 82.6,
       "sharedMatchIds": [
         1,
         2,
@@ -2559,7 +2574,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         111,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "JTaz": {
@@ -2637,12 +2653,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
   },
   "Mollu": {
     "Just Rohn": {
-      "sharedMatches": 40,
-      "p1Wins": 22,
+      "sharedMatches": 41,
+      "p1Wins": 23,
       "p2Wins": 17,
       "draws": 1,
-      "p1AvgScore": 84.4,
-      "p2AvgScore": 80.4,
+      "p1AvgScore": 83.6,
+      "p2AvgScore": 80.3,
       "sharedMatchIds": [
         1,
         2,
@@ -2683,16 +2699,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         110,
         111,
         113,
-        115
+        115,
+        116
       ]
     },
     "Delux": {
-      "sharedMatches": 52,
+      "sharedMatches": 53,
       "p1Wins": 22,
-      "p2Wins": 26,
+      "p2Wins": 27,
       "draws": 4,
-      "p1AvgScore": 82.1,
-      "p2AvgScore": 76.7,
+      "p1AvgScore": 81.5,
+      "p2AvgScore": 76.2,
       "sharedMatchIds": [
         1,
         2,
@@ -2745,7 +2762,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         112,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "nonsonodread": {
@@ -2808,12 +2826,12 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
       ]
     },
     "ilMasseo": {
-      "sharedMatches": 22,
-      "p1Wins": 13,
+      "sharedMatches": 23,
+      "p1Wins": 14,
       "p2Wins": 9,
       "draws": 0,
-      "p1AvgScore": 78.8,
-      "p2AvgScore": 81.7,
+      "p1AvgScore": 77.6,
+      "p2AvgScore": 80.9,
       "sharedMatchIds": [
         6,
         8,
@@ -2836,16 +2854,17 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         108,
         112,
         113,
-        115
+        115,
+        116
       ]
     },
     "GaBBo": {
-      "sharedMatches": 47,
-      "p1Wins": 29,
+      "sharedMatches": 48,
+      "p1Wins": 30,
       "p2Wins": 16,
       "draws": 2,
-      "p1AvgScore": 83.3,
-      "p2AvgScore": 91.7,
+      "p1AvgScore": 82.6,
+      "p2AvgScore": 91.3,
       "sharedMatchIds": [
         1,
         2,
@@ -2893,7 +2912,8 @@ export const H2H_DATA: Record<string, Record<string, H2HRecord>> = {
         111,
         113,
         114,
-        115
+        115,
+        116
       ]
     },
     "JTaz": {
@@ -22129,5 +22149,184 @@ export const MATCHES_DATA: GolfatinaMatch[] = [
     "totalHIOs": 13,
     "maxHoleScore": 16,
     "sdrogoCommentary": "Vittoria di Mollu (-7). Partita segnata da buche maledette con picchi fino a 16 colpi per ilMasseo!"
+  },
+  {
+    "id": 116,
+    "date": "2026-11-17",
+    "title": "GOLFATINA nella FORESTA MELAGOODO...MA ROHN TIRA SEMPRE PER PRIMO! ⛳",
+    "url": "https://youtu.be/8PZBEmiMTQ8",
+    "youtubeId": "8PZBEmiMTQ8",
+    "channel": "Just Rohn JR",
+    "totalPar": 96,
+    "players": [
+      {
+        "name": "Delux",
+        "position": 1,
+        "totalScore": 47,
+        "diffPar": -49,
+        "holes": [
+          3,
+          13,
+          1,
+          3,
+          2,
+          1,
+          1,
+          1,
+          9,
+          1,
+          1,
+          3,
+          1,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "holeCount": 18,
+        "hios": 10,
+        "disasters": 1,
+        "capped": 0,
+        "bestHole": 1,
+        "worstHole": 13
+      },
+      {
+        "name": "Mollu",
+        "position": 2,
+        "totalScore": 51,
+        "diffPar": -45,
+        "holes": [
+          10,
+          2,
+          1,
+          4,
+          2,
+          3,
+          2,
+          1,
+          3,
+          1,
+          1,
+          1,
+          1,
+          12,
+          4,
+          1,
+          1,
+          1
+        ],
+        "holeCount": 18,
+        "hios": 9,
+        "disasters": 2,
+        "capped": 0,
+        "bestHole": 1,
+        "worstHole": 12
+      },
+      {
+        "name": "ilMasseo",
+        "position": 3,
+        "totalScore": 64,
+        "diffPar": -32,
+        "holes": [
+          7,
+          6,
+          5,
+          3,
+          2,
+          1,
+          1,
+          1,
+          11,
+          1,
+          9,
+          7,
+          3,
+          1,
+          3,
+          1,
+          1,
+          1
+        ],
+        "holeCount": 18,
+        "hios": 8,
+        "disasters": 1,
+        "capped": 0,
+        "bestHole": 1,
+        "worstHole": 11
+      },
+      {
+        "name": "GaBBo",
+        "position": 4,
+        "totalScore": 75,
+        "diffPar": -21,
+        "holes": [
+          8,
+          4,
+          12,
+          1,
+          1,
+          2,
+          1,
+          1,
+          16,
+          1,
+          2,
+          8,
+          3,
+          9,
+          3,
+          1,
+          1,
+          1
+        ],
+        "holeCount": 18,
+        "hios": 8,
+        "disasters": 2,
+        "capped": 1,
+        "bestHole": 1,
+        "worstHole": 16
+      },
+      {
+        "name": "Just Rohn",
+        "position": 4,
+        "totalScore": 75,
+        "diffPar": -21,
+        "holes": [
+          4,
+          6,
+          5,
+          6,
+          3,
+          3,
+          4,
+          1,
+          11,
+          3,
+          12,
+          1,
+          5,
+          3,
+          2,
+          1,
+          4,
+          1
+        ],
+        "holeCount": 18,
+        "hios": 4,
+        "disasters": 2,
+        "capped": 0,
+        "bestHole": 1,
+        "worstHole": 12
+      }
+    ],
+    "winner": "Delux",
+    "winningScore": 47,
+    "winningDiffPar": -49,
+    "mvp": "Delux",
+    "asino": "Just Rohn",
+    "totalHIOs": 39,
+    "maxHoleScore": 16,
+    "sdrogoCommentary": "Vittoria di Delux (-49). Partita segnata da buche maledette con picchi fino a 16 colpi per Just Rohn!"
   }
 ];
